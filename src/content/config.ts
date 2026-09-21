@@ -3,7 +3,6 @@ import { defineCollection, z } from 'astro:content';
 const robots = defineCollection({
   schema: z.object({
     title: z.string(),
-    slug: z.string(),
     category: z.string(),
     manufacturer: z.string().optional(),
     price_usd: z.number().optional(),
@@ -24,7 +23,6 @@ const robots = defineCollection({
 const blog = defineCollection({
   schema: z.object({
     title: z.string(),
-    slug: z.string(),
     status: z.enum(['draft','review','published']).default('draft'),
     publish_date: z.string().optional(),
     robot_slug: z.string().optional(),
