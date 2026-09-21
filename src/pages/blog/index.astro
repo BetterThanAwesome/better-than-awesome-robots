@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).filter(p => p.data.status === 'published');
+---
+<Base title="Robot Articles | Better Than Awesome">
+  <section class="hero"><h1>Robot articles</h1><p class="lede">Questions, buyer guides, use cases and the occasional extremely unnecessary robot.</p></section>
+  <section class="grid">
+    {posts.map(post => <article class="card">
+      {post.data.image && <img src={post.data.image} alt={post.data.title} />}
+      <h2>{post.data.title}</h2>
+      {post.data.excerpt && <p>{post.data.excerpt}</p>}
+      <a class="btn" href={`/blog/${post.data.slug}/`}>Read</a>
+    </article>)}
+  </section>
+</Base>
