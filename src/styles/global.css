@@ -1,0 +1,19 @@
+
+:root { font-family: Arial, Helvetica, sans-serif; color: #101010; background: #fbfbf7; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.hero { padding: 56px 0 24px; }
+h1 { font-size: clamp(42px, 7vw, 82px); line-height: .95; letter-spacing: -.045em; margin: 12px 0; }
+h2 { line-height: 1.05; }
+.lede { font-size: 20px; line-height: 1.5; max-width: 760px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.card { border: 2px solid #111; background: #fff; padding: 16px; box-shadow: 6px 6px 0 #111; }
+.card img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: white; }
+.price { font-size: 26px; font-weight: 800; }
+.meta { font-size: 12px; text-transform: uppercase; font-weight: 700; }
+.btn { display: inline-block; padding: 12px 16px; background: #111; color: #fff; text-decoration: none; font-weight: 700; margin: 4px 6px 4px 0; }
+.note { background: #fff2a8; padding: 12px; border: 2px solid #111; }
+footer { border-top: 2px solid #111; margin-top: 48px; padding: 30px 0 60px; }
+article.prose { max-width: 780px; line-height: 1.65; font-size: 18px; }
