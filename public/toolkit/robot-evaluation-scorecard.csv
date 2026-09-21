@@ -1,0 +1,9 @@
+criterion,weight,robot_a,robot_b,robot_c
+Task fit,25,,,
+Safety,20,,,
+Reliability,15,,,
+Service and parts,10,,,
+Integration,10,,,
+Total cost of ownership,10,,,
+Ease of deployment,5,,,
+Human acceptance,5,,,
