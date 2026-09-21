@@ -1,0 +1,128 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: robots
+    label: Robots
+    type: collection
+    path: src/content/robots
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, category, status, manufacturer, price_usd, verified_date]
+      primary: title
+      sort: [title, category, status]
+      search: [title, manufacturer, category, tags]
+    fields:
+      - name: title
+        label: Robot name
+        type: string
+        required: true
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+      - name: category
+        type: string
+        required: true
+      - name: manufacturer
+        type: string
+      - name: price_usd
+        label: Reference price USD
+        type: number
+      - name: status
+        type: select
+        options:
+          values: [draft, review, published]
+        default: draft
+      - name: region
+        type: string
+        list: true
+      - name: image
+        type: image
+      - name: affiliate_url
+        label: Affiliate URL
+        type: string
+      - name: seller_url
+        label: Seller URL
+        type: string
+      - name: verified_date
+        label: Last verified date
+        type: date
+      - name: buyer
+        label: Likely buyers
+        type: text
+      - name: problem
+        label: Problem solved
+        type: text
+      - name: hook
+        label: Better Than Awesome hook
+        type: text
+      - name: featured
+        type: boolean
+        default: false
+      - name: tags
+        type: string
+        list: true
+      - name: body
+        label: Article body
+        type: rich-text
+
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/content/blog
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, status, publish_date, robot_slug]
+      primary: title
+      sort: [publish_date, title]
+      search: [title, robot_slug, tags]
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: slug
+        type: string
+        required: true
+      - name: status
+        type: select
+        options:
+          values: [draft, review, published]
+        default: draft
+      - name: publish_date
+        type: date
+      - name: robot_slug
+        label: Related robot slug
+        type: string
+      - name: image
+        type: image
+      - name: excerpt
+        type: text
+      - name: region
+        type: string
+        list: true
+      - name: tags
+        type: string
+        list: true
+      - name: body
+        label: Article body
+        type: rich-text
+
+  - name: site_settings
+    label: Site settings
+    type: file
+    path: src/content/site.json
+    fields:
+      - name: site_name
+        type: string
+      - name: us_referral_url
+        type: string
+      - name: international_referral_url
+        type: string
+      - name: asia_referral_url
+        type: string
+      - name: europe_referral_url
+        type: string
+      - name: africa_referral_url
+        type: string
