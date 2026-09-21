@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const robots = (await getCollection('robots'))
+  .filter(r => r.data.status === 'published')
+  .sort((a,b) => a.data.category.localeCompare(b.data.category));
+---
+<Base title="Procurement Test 2 | Better Than Awesome Robots" description="A procurement focused interface for organizations evaluating commercial robots.">
+  <section class="gov-shell">
+    <div class="gov-masthead">
+      <div><strong>BETTER THAN AWESOME ROBOT PROCUREMENT CATALOG</strong><br/>Independent buyer information and affiliate referral interface</div>
+      <div class="gov-id">TEST 02 / PROCUREMENT UI</div>
+    </div>
+
+    <nav class="gov-nav" aria-label="Procurement navigation">
+      <a href="/">BTA HOME</a>
+      <a href="#catalog">ROBOT CATALOG</a>
+      <a href="#documents">PROCUREMENT DOCUMENTS</a>
+      <a href="/tests/modernist/">AESTHETIC TEST 03</a>
+    </nav>
+
+    <div class="gov-content">
+      <section class="gov-hero">
+        <div>
+          <div class="gov-kicker">Commercial robot procurement</div>
+          <h1>Robot purchasing information for organizations.</h1>
+          <p class="gov-summary">A plain, procurement oriented interface for facilities teams, healthcare organizations, campuses, warehouses, public agencies, enterprise buyers, and other organizations evaluating commercial robots.</p>
+        </div>
+
+        <aside class="gov-status">
+          <h2>CATALOG STATUS</h2>
+          <dl>
+            <dt>Published items</dt><dd>{robots.length}</dd>
+            <dt>Region</dt><dd>United States</dd>
+            <dt>Seller path</dt><dd>RobotsUSA affiliate</dd>
+            <dt>Catalog type</dt><dd>Independent referral</dd>
+            <dt>Last review cycle</dt><dd>2026 09 21</dd>
+            <dt>Ordering</dt><dd>Seller dependent</dd>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="gov-section" id="catalog">
+        <h2>Available robot catalog</h2>
+        <div class="gov-table-wrap">
+          <table class="gov-table">
+            <thead>
+              <tr>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Category</th>
+                <th>Potential buyer use</th>
+                <th>Reference price</th>
+                <th>Verified</th>
+                <th>Procurement action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {robots.map(robot => (
+                <tr>
+                  <td>{robot.data.manufacturer}</td>
+                  <td><strong>{robot.data.title}</strong></td>
+                  <td>{robot.data.category}</td>
+                  <td>{robot.data.buyer || robot.data.problem}</td>
+                  <td>{robot.data.price_usd ? `$${robot.data.price_usd.toLocaleString()}` : 'Quote required'}</td>
+                  <td>{robot.data.verified_date || 'Pending'}</td>
+                  <td>
+                    <a class="gov-action" href={`/robots/${robot.slug}/`}>DETAILS</a>
+                    {robot.data.affiliate_url && <a class="gov-action primary" href={robot.data.affiliate_url} rel="sponsored nofollow">SELLER / QUOTE</a>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="gov-section" id="documents">
+        <h2>Procurement documents and planning tools</h2>
+        <div class="gov-tools">
+          <div class="gov-tool">
+            <strong>Robot procurement RFP starter</strong>
+            <span>Basic language for task, environment, performance, integration, support, and evaluation requirements.</span>
+            <p><a href="/toolkit/robot-rfp-starter.md">OPEN DOCUMENT</a></p>
+          </div>
+          <div class="gov-tool">
+            <strong>Robot ROI worksheet</strong>
+            <span>Simple spreadsheet structure for labor, implementation, service, useful life, and payback inputs.</span>
+            <p><a href="/toolkit/robot-roi-worksheet.csv">DOWNLOAD CSV</a></p>
+          </div>
+          <div class="gov-tool">
+            <strong>Evaluation scorecard</strong>
+            <span>Structured comparison fields for task fit, safety, reliability, service, integration, cost, and deployment.</span>
+            <p><a href="/toolkit/robot-evaluation-scorecard.csv">DOWNLOAD CSV</a></p>
+          </div>
+        </div>
+      </section>
+
+      <div class="gov-notice">
+        <strong>IMPORTANT PROCUREMENT NOTICE:</strong> Better Than Awesome is an independent catalog and affiliate referral publisher. It is not a government agency, manufacturer, authorized contracting office, or representation that any product is approved for a particular agency, hospital, school, public safety organization, or regulated use. Buyers should verify specifications, security, compliance, warranty, service, shipping, contract terms, and suitability directly with the seller and relevant internal procurement authority.
+      </div>
+    </div>
+
+    <div class="gov-footer">
+      BTA ROBOT PROCUREMENT TEST 02 / GOVERNMENT BLUE INTERFACE / PUBLIC PREVIEW
+    </div>
+  </section>
+</Base>
