@@ -21,7 +21,7 @@ const robots = (await getCollection('robots'))
         <h2>{robot.data.title}</h2>
         {robot.data.price_usd && <div class="price">${robot.data.price_usd.toLocaleString()}</div>}
         {robot.data.hook && <p>{robot.data.hook}</p>}
-        <a class="btn" href={`/robots/${robot.data.slug}/`}>Meet this robot</a>
+        <a class="btn" href={`/robots/${robot.slug}/`}>Meet this robot</a>
       </article>
     ))}
   </section>
