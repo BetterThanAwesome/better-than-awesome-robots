@@ -4,7 +4,7 @@ category: "Material handling"
 manufacturer: "PUDU"
 status: "published"
 region: ["usa", "international"]
-image: "/media/robots/pudu-mp2000.jpg"
+image: "/media/robots/pudu-mp2000.webp"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 seller_url: "https://www.robotsusa.com/PUDU-MP2000.htm"
 verified_date: "2026-09-21"
