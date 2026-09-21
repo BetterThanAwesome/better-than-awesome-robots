@@ -5,7 +5,7 @@ manufacturer: "UBTECH"
 price_usd: 159950
 status: "published"
 region: ["usa", "international"]
-image: "/media/robots/ubtech-uworld-u1-ultra-female.jpg"
+image: "/media/robots/ubtech-uworld-u1-ultra-female.webp"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 verified_date: "2026-09-21"
 buyer: "Hospitality, events, retail, exhibitions, research and interactive customer experiences"
