@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const robots = await getCollection('robots');
+  return robots
+    .filter(r => r.data.status === 'published')
+    .map(robot => ({ params: { slug: robot.data.slug }, props: { robot } }));
+}
+
+const { robot } = Astro.props;
+const { Content } = await robot.render();
+---
+<Base title={`${robot.data.title} | Better Than Awesome`} description={robot.data.hook || robot.data.problem || robot.data.title}>
+  <p><a href="/">Back to robot catalog</a></p>
+  <section class="hero">
+    <div class="meta">{robot.data.category}</div>
+    <h1>{robot.data.title}</h1>
+    {robot.data.image && <img src={robot.data.image} alt={robot.data.title} style="max-width:520px;width:100%;object-fit:contain" />}
+    {robot.data.price_usd && <div class="price">${robot.data.price_usd.toLocaleString()}</div>}
+    {robot.data.affiliate_url && <a class="btn" href={robot.data.affiliate_url} rel="sponsored nofollow">See seller</a>}
+  </section>
+  <article class="prose"><Content /></article>
+  <p class="note">Reference pricing and availability can change. Verify current configuration, shipping, support and suitability before purchasing.</p>
+</Base>
