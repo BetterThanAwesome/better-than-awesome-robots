@@ -10,7 +10,7 @@ const posts = (await getCollection('blog')).filter(p => p.data.status === 'publi
       {post.data.image && <img src={post.data.image} alt={post.data.title} />}
       <h2>{post.data.title}</h2>
       {post.data.excerpt && <p>{post.data.excerpt}</p>}
-      <a class="btn" href={`/blog/${post.data.slug}/`}>Read</a>
+      <a class="btn" href={`/blog/${post.slug}/`}>Read</a>
     </article>)}
   </section>
 </Base>
