@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const robots = (await getCollection('robots')).filter(r => r.data.status === 'published');
+---
+<Base title="Robot Catalog | Better Than Awesome">
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
+    <nav class="nav"><a href="/">Home</a><a href="/blog/">Articles</a></nav>
+  </header>
+  <section class="market-hero" style="grid-template-columns:1fr">
+    <div>
+      <div class="eyebrow">Full catalog</div>
+      <h1>Robots, organized by what they do.</h1>
+      <p class="lede">This catalog will keep growing as products, regional seller links, prices, research, images, and buyer guidance are added.</p>
+    </div>
+  </section>
+  <section class="grid">
+    {robots.map(robot => (
+      <article class="robot-card">
+        {robot.data.image && <img class="robot-image" src={robot.data.image} alt={robot.data.title} />}
+        <div class="robot-card-body">
+          <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
+          <h3>{robot.data.title}</h3>
+          <p>{robot.data.hook}</p>
+          <div class="card-actions"><a class="btn blue" href={`/robots/${robot.slug}/`}>Explore robot</a></div>
+        </div>
+      </article>
+    ))}
+  </section>
+</Base>
