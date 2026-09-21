@@ -4,7 +4,7 @@ category: "Commercial cleaning"
 manufacturer: "PUDU"
 status: "published"
 region: ["usa", "international"]
-image: "/media/robots/pudu-bg1-pro.jpg"
+image: "/media/robots/pudu-bg1-pro.webp"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 seller_url: "https://www.robotsusa.com/PUDU-BG1-Pro-AI-Native-Large-Scrubber-Dryer-Robot.htm"
 verified_date: "2026-09-21"
