@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const robots = (await getCollection('robots'))
+  .filter(r => r.data.status === 'published')
+  .sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
+---
+<Base title="Robots You Can Actually Buy | Better Than Awesome">
+  <section class="hero">
+    <div class="meta">Better Than Awesome presents</div>
+    <h1>Holy crap. You can buy robots now.</h1>
+    <p class="lede">A growing catalog of robots, what they actually do, who might need them, and where to buy them.</p>
+  </section>
+
+  <section class="grid">
+    {robots.map(robot => (
+      <article class="card">
+        {robot.data.image && <img src={robot.data.image} alt={robot.data.title} />}
+        <div class="meta">{robot.data.category}</div>
+        <h2>{robot.data.title}</h2>
+        {robot.data.price_usd && <div class="price">${robot.data.price_usd.toLocaleString()}</div>}
+        {robot.data.hook && <p>{robot.data.hook}</p>}
+        <a class="btn" href={`/robots/${robot.data.slug}/`}>Meet this robot</a>
+      </article>
+    ))}
+  </section>
+</Base>
