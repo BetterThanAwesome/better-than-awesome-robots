@@ -6,7 +6,7 @@ export async function getStaticPaths() {
   const robots = await getCollection('robots');
   return robots
     .filter(r => r.data.status === 'published')
-    .map(robot => ({ params: { slug: robot.data.slug }, props: { robot } }));
+    .map(robot => ({ params: { slug: robot.slug }, props: { robot } }));
 }
 
 const { robot } = Astro.props;
