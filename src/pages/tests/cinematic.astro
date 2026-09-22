@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const robots = (await getCollection('robots'))
+  .filter(r => r.data.status === 'published')
+  .sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
+const featured = robots[0];
+---
+<Base title="Cinematic Futuristic Test | Better Than Awesome" description="Discover what is actually worth your attention. A sleek futuristic Better Than Awesome homepage concept.">
+  <div class="cine-page">
+    <header class="cine-header">
+      <a class="cine-brand" href="/">
+        <span class="cine-orbit"></span>
+        <span>Better Than Awesome</span>
+      </a>
+      <nav class="cine-nav">
+        <a href="#discover">Discover</a>
+        <a href="#robots">Robots</a>
+        <a href="/blog/">Stories</a>
+        <a href="/tests/">Aesthetic Lab</a>
+      </nav>
+    </header>
+
+    <section class="cine-hero" id="discover">
+      <div>
+        <div class="cine-kicker">Curated technology · remarkable things · real buying paths</div>
+        <h1>Discover what’s actually worth your attention.</h1>
+        <p class="cine-lede">Better Than Awesome finds the technology, products and ideas that make the future feel suddenly real. Robots are first. They are definitely not the last thing we are going to find.</p>
+        <div class="cine-actions">
+          <a class="cine-btn primary" href="#robots">Explore the robots</a>
+          <a class="cine-btn ghost" href="/tests/">Compare all design tests</a>
+        </div>
+      </div>
+
+      <div class="cine-visual">
+        {featured?.data.image && <img src={featured.data.image} alt={featured.data.title} />}
+        <span class="cine-chip one">OBJECT 001 / ROBOTICS</span>
+        <span class="cine-chip two">{featured?.data.title || 'BETTER THAN AWESOME'}</span>
+      </div>
+    </section>
+
+    <section class="cine-grid-section" id="robots">
+      <div class="cine-section-head">
+        <div>
+          <div class="cine-kicker">Robots first</div>
+          <h2>The future showed up early.</h2>
+        </div>
+        <p>We care less about whether something looks futuristic than whether it does something remarkable, useful, ridiculous, or impossible enough to deserve a closer look.</p>
+      </div>
+
+      <div class="cine-grid">
+        {robots.map(robot => (
+          <article class="cine-card">
+            {robot.data.image && <img src={robot.data.image} alt={robot.data.title} />}
+            <div class="cine-card-body">
+              <div class="cine-meta">{robot.data.category} · {robot.data.manufacturer}</div>
+              <h3>{robot.data.title}</h3>
+              <p>{robot.data.hook || robot.data.problem}</p>
+              <a href={`/robots/${robot.slug}/`}>Explore this robot →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="cine-handoff">
+      <div>
+        <small>When curiosity becomes purchase intent</small>
+        <h3>Better Than Awesome discovers it. The seller handles the transaction.</h3>
+        <p>The experience stays sleek until the moment you need price, quote, shipping, support or checkout. Then we hand you to the regional seller.</p>
+      </div>
+      <a class="cine-seller-btn" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow">Continue to RobotsUSA →</a>
+    </section>
+
+    <footer class="cine-footer">
+      <span>BETTER THAN AWESOME / CINEMATIC FUTURISTIC TEST</span>
+      <span>ROBOTS FIRST · FUTURE TECH NEXT</span>
+    </footer>
+  </div>
+</Base>
