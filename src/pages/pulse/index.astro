@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Robot Pulse',
+  description: 'A live social listening dashboard for robotics news and discussion from X and Reddit.',
+  url: 'https://betterthanawesome.com/pulse/',
+  about: {
+    '@type': 'Thing',
+    name: 'Robotics'
+  }
+};
+
+const xSearches = [
+  {label:'Robots live', url:'https://x.com/search?q=robots&src=typed_query&f=live'},
+  {label:'Humanoid robots', url:'https://x.com/search?q=%22humanoid%20robot%22&src=typed_query&f=live'},
+  {label:'Robot dogs', url:'https://x.com/search?q=%22robot%20dog%22&src=typed_query&f=live'},
+  {label:'Firefighting robots', url:'https://x.com/search?q=%22firefighting%20robot%22&src=typed_query&f=live'},
+  {label:'Medical robots', url:'https://x.com/search?q=%22medical%20robot%22&src=typed_query&f=live'},
+  {label:'Companion robots', url:'https://x.com/search?q=%22companion%20robot%22&src=typed_query&f=live'}
+];
+---
+<Base title="Robot Pulse | Live Robotics Social Listening" description="Live robot conversations, breaking robotics chatter and the top Reddit discussions in one Better Than Awesome dashboard." schema={schema}>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robot Pulse</span></a>
+    <nav class="nav"><a href="/">Home</a><a href="/robots/">Robots</a><a href="/categories/">Categories</a><a href="/blog/">Articles</a></nav>
+  </header>
+
+  <section class="pulse-hero">
+    <div>
+      <div class="eyebrow">Robot social listening</div>
+      <h1>What is the robot internet talking about right now?</h1>
+      <p>Robot Pulse is the fast-moving layer of Better Than Awesome: live conversations, useful noise, breaking products, research chatter and the discussions buyers should probably know about.</p>
+    </div>
+    <div class="pulse-status">
+      <span class="pulse-dot"></span>
+      <strong>LIVE MVP</strong>
+      <small>Reddit refreshes automatically. X is ready for a public List or API connection.</small>
+    </div>
+  </section>
+
+  <section class="pulse-grid">
+    <article class="pulse-panel x-panel">
+      <div class="panel-head">
+        <div><span class="network-label">X</span><h2>Robot waterfall</h2></div>
+        <span class="status-chip">Listening shell</span>
+      </div>
+      <p class="panel-intro">Old-school Twitfall energy, rebuilt for robotics. Until a public X List or API feed is connected, these jump directly into live X searches rather than showing a fake timeline.</p>
+      <div class="x-search-grid">
+        {xSearches.map(item => <a href={item.url} target="_blank" rel="noopener"><span>{item.label}</span><b>Open live search ↗</b></a>)}
+      </div>
+      <div class="x-connect">
+        <strong>Next connection</strong>
+        <p>Add one curated public X List of robotics manufacturers, researchers, fire/medical robotics accounts, journalists and builders. This panel is already designed to become the embedded stream.</p>
+      </div>
+    </article>
+
+    <article class="pulse-panel reddit-panel">
+      <div class="panel-head">
+        <div><span class="network-label reddit">REDDIT</span><h2>Top 3 robot conversations</h2></div>
+        <span class="status-chip live">Auto refresh</span>
+      </div>
+      <p class="panel-intro">A lightweight ranking of current posts from r/robotics, r/humanoidrobotics and r/robots, weighted by votes, comments and recency.</p>
+      <div id="redditPulse" class="reddit-stack" aria-live="polite">
+        <div class="reddit-loading">Loading the robot hive mind…</div>
+      </div>
+      <div class="reddit-foot">Community popularity is not verification. Treat claims as conversation until independently confirmed.</div>
+    </article>
+  </section>
+
+  <section class="pulse-signals">
+    <div class="section-head">
+      <div><div class="eyebrow">Signal map</div><h2>What we are listening for.</h2></div>
+      <p>This becomes more useful as we connect more sources. These are the themes that matter most to the buying and editorial side of Better Than Awesome.</p>
+    </div>
+    <div class="signal-grid">
+      <a href="/categories/safety/"><strong>Fire + public safety</strong><span>Deployments, tenders, field tests, emergency response</span></a>
+      <a href="/categories/healthcare/"><strong>Medical + care</strong><span>Rehabilitation, hospital robotics, assistive technology</span></a>
+      <a href="/categories/companions/"><strong>Companion + social</strong><span>Care, interaction, social robotics, privacy</span></a>
+      <a href="/categories/humanoids/"><strong>Humanoids</strong><span>New models, pricing, demos, manufacturing claims</span></a>
+      <a href="/categories/quadrupeds/"><strong>Quadrupeds</strong><span>Inspection, terrain, robot dogs, field robotics</span></a>
+      <a href="/categories/warehouse/"><strong>Commercial deployment</strong><span>Warehouse, cleaning, logistics and ROI</span></a>
+    </div>
+  </section>
+
+  <script is:inline>
+    const container = document.getElementById('redditPulse');
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+    const timeAgo = timestamp => {
+      const seconds = Math.max(0, Date.now()/1000 - timestamp);
+      if (seconds < 3600) return Math.max(1, Math.floor(seconds/60)) + 'm ago';
+      if (seconds < 86400) return Math.floor(seconds/3600) + 'h ago';
+      return Math.floor(seconds/86400) + 'd ago';
+    };
+    async function loadReddit(){
+      try{
+        const response = await fetch('/api/reddit');
+        const data = await response.json();
+        if (!data.posts?.length) throw new Error('empty');
+        container.innerHTML = data.posts.map((post,index) => `
+          <a class="reddit-card" href="${escapeHtml(post.url)}" target="_blank" rel="noopener">
+            <div class="reddit-rank">0${index+1}</div>
+            <div class="reddit-copy">
+              <div class="reddit-meta">r/${escapeHtml(post.subreddit)} · ${post.score} points · ${post.comments} comments · ${timeAgo(post.created_utc)}</div>
+              <strong>${escapeHtml(post.title)}</strong>
+              <span>Open discussion ↗</span>
+            </div>
+          </a>`).join('');
+      }catch(error){
+        container.innerHTML = '<div class="reddit-loading">Reddit is not responding right now. <a href="https://www.reddit.com/r/robotics/" target="_blank" rel="noopener">Open r/robotics ↗</a></div>';
+      }
+    }
+    loadReddit();
+    setInterval(loadReddit, 300000);
+  </script>
+</Base>
+
+<style>
+.pulse-hero{display:grid;grid-template-columns:1fr 280px;gap:34px;align-items:end;padding:56px 0 34px}.pulse-hero h1{font-size:clamp(54px,7vw,98px);line-height:.88;letter-spacing:-.065em;margin:10px 0 18px;max-width:9ch}.pulse-hero p{font-size:20px;line-height:1.5;max-width:780px}
+.pulse-status{background:#0a0d12;color:white;border-radius:20px;padding:20px;display:grid;grid-template-columns:auto 1fr;gap:5px 9px;align-items:center}.pulse-status small{grid-column:2;color:#aeb6c4;line-height:1.4}.pulse-dot{width:10px;height:10px;border-radius:50%;background:#a8ff3e;box-shadow:0 0 16px #a8ff3e}
+.pulse-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.pulse-panel{border:1px solid var(--line);border-radius:24px;background:white;padding:24px;min-height:620px}.x-panel{background:#080b10;color:white}.panel-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.panel-head h2{font-size:38px;line-height:.95;letter-spacing:-.045em;margin:6px 0}.network-label{font-size:11px;font-weight:950;letter-spacing:.14em;color:#8fb8ff}.network-label.reddit{color:#ff6a33}.status-chip{font-size:10px;text-transform:uppercase;letter-spacing:.1em;border:1px solid rgba(255,255,255,.22);padding:7px 9px;border-radius:999px}.reddit-panel .status-chip{border-color:var(--line)}.status-chip.live{color:#267a31}.panel-intro{line-height:1.5;color:var(--muted)}.x-panel .panel-intro{color:#b8c0ce}
+.x-search-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}.x-search-grid a{border:1px solid #242b36;border-radius:14px;padding:16px;color:white;text-decoration:none;background:#10151e}.x-search-grid span,.x-search-grid b{display:block}.x-search-grid b{font-size:11px;color:#8fb8ff;margin-top:8px}.x-connect{margin-top:22px;padding:18px;border-radius:16px;background:#111a27;border:1px solid #26364c}.x-connect p{color:#aeb8c7;line-height:1.45;margin-bottom:0}
+.reddit-stack{display:grid;gap:10px;margin-top:22px}.reddit-card{display:grid;grid-template-columns:54px 1fr;gap:14px;padding:16px;border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink);background:#fafaf7}.reddit-rank{font-size:30px;font-weight:950;letter-spacing:-.06em;color:#ff4d16}.reddit-copy strong{display:block;font-size:20px;line-height:1.15;margin:6px 0}.reddit-meta{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.reddit-copy span{font-size:11px;font-weight:900}.reddit-foot,.reddit-loading{font-size:12px;color:var(--muted);line-height:1.45;margin-top:14px}
+.pulse-signals{margin:58px 0 34px}.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.signal-grid a{padding:18px;border:1px solid var(--line);border-radius:16px;text-decoration:none;background:white}.signal-grid strong,.signal-grid span{display:block}.signal-grid span{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.4}
+@media(max-width:900px){.pulse-hero,.pulse-grid{grid-template-columns:1fr}.pulse-panel{min-height:0}.signal-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.x-search-grid,.signal-grid{grid-template-columns:1fr}}
+</style>
