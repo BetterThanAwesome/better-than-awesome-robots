@@ -699,3 +699,13 @@ footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 30px 0 60
   .cine-grid { grid-template-columns: 1fr; }
   .cine-handoff, .cine-footer, .cine-header { align-items: flex-start; flex-direction: column; }
 }
+
+
+#bta-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999}
+.bta-consent-inner{max-width:1120px;margin:0 auto;background:#0b0f16;color:#fff;border:1px solid #2b3442;border-radius:18px;padding:18px;display:flex;gap:24px;align-items:center;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+.bta-consent-inner strong{font-size:16px}
+.bta-consent-inner p{margin:6px 0 0;color:#c7ced8;font-size:12px;line-height:1.45;max-width:760px}
+.bta-consent-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.bta-consent-actions button{border:1px solid #394455;background:#151b25;color:#fff;border-radius:999px;padding:10px 12px;font-weight:800;cursor:pointer}
+.bta-consent-actions button[data-consent="all"]{background:#fff;color:#111}
+@media(max-width:760px){.bta-consent-inner{align-items:flex-start;flex-direction:column}.bta-consent-actions{margin-left:0}}
