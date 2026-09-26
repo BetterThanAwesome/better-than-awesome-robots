@@ -20,6 +20,7 @@ export async function GET() {
     '/coverage/',
     '/pulse/',
     '/signal/',
+    '/agents/',
     '/tests/procurement/'
   ];
 
