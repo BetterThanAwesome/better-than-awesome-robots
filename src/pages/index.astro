@@ -6,64 +6,77 @@ const robots = (await getCollection('robots'))
   .filter(r => r.data.status === 'published')
   .sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
 
-const categories = [...new Set(robots.map(r => r.data.category))];
+const featured = robots.slice(0, 3);
 ---
-<Base title="Robots You Can Actually Buy | Better Than Awesome" description="A growing Better Than Awesome catalog of robots, practical use cases, buyer guides, and regional seller links.">
+
+<Base title="Better Than Awesome | Robots You Can Actually Buy" description="Find robots by job, compare practical use cases, read buyer guidance, and connect with regional sellers when you are ready to quote or buy.">
   <header class="site-header">
-    <a class="brand" href="/">
+    <a class="brand" href="/" aria-label="Better Than Awesome home">
       <span class="brand-mark">BTA</span>
       <span>Better Than Awesome</span>
       <span class="brand-sub">Robots</span>
     </a>
-    <nav class="nav">
-      <a href="#robots">Robots</a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#featured">Robots</a>
+      <a href="#use-cases">Use cases</a>
       <a href="/blog/">Articles</a>
-      <a href="#organizations">For organizations</a>
-      <a href="/tests/cinematic/">Cinematic</a>\n      <a href="/tests/">Aesthetic Lab</a>\n      <a href="/tests/procurement/">Test 2</a>\n      <a href="/tests/modernist/">Test 3</a>
+      <a href="#buyers">Buyer toolkit</a>
+      <a href="#organizations">Organizations</a>
     </nav>
   </header>
 
-  <section class="market-hero">
-    <div>
+  <section class="bta-hero">
+    <div class="bta-hero-copy">
       <div class="eyebrow">Robots, minus the bullshit</div>
       <h1>Find the robot that actually does the thing.</h1>
-      <p class="lede">We sort through robots by what they can do, who they are for, what still needs verification, and where you can actually buy or quote them.</p>
+      <p class="lede">Better Than Awesome is a practical robot discovery site. Start with the job, understand the tradeoffs, compare real machines, then move to a seller only when you are ready.</p>
+      <div class="hero-actions">
+        <a class="btn blue" href="#featured">Explore robots</a>
+        <a class="btn secondary" href="#use-cases">Shop by job</a>
+      </div>
+      <div class="hero-proof">
+        <span>Cleaning</span><span>Delivery</span><span>Warehousing</span><span>Humanoids</span><span>Public safety</span><span>Education</span>
+      </div>
     </div>
-    <aside class="hero-panel">
-      <span class="lime"></span>
-      <strong>Start with the job.<br/>Then pick the robot.</strong>
-      <p>Cleaning, warehouse movement, humanoid interaction, inspection, public safety, education, healthcare, home use, and a lot more as this catalog grows.</p>
-    </aside>
+    <div class="robot-collage" aria-label="Featured robots">
+      {featured[0] && <a class="collage-main" href={`/robots/${featured[0].slug}/`}><img src={featured[0].data.image} alt={featured[0].data.title} /><span>{featured[0].data.title}</span></a>}
+      <div class="collage-stack">
+        {featured.slice(1).map(robot => <a href={`/robots/${robot.slug}/`}><img src={robot.data.image} alt={robot.data.title} /><span>{robot.data.title}</span></a>)}
+      </div>
+    </div>
   </section>
 
-  <section id="robots">
-    <div class="search-shell">
-      <strong>Search</strong>
-      <input id="robotSearch" type="search" placeholder="robot, job, category, manufacturer..." aria-label="Search robot catalog" />
-    </div>
+  <section class="trust-strip">
+    <div><strong>Start with the task.</strong><span>Not the hype cycle.</span></div>
+    <div><strong>Separate facts from claims.</strong><span>Seller specs are identified as seller specs.</span></div>
+    <div><strong>Buy through regional partners.</strong><span>Pricing and availability live with the seller.</span></div>
+  </section>
 
-    <div class="filter-row" aria-label="Robot category filters">
-      <button class="filter-chip active" data-filter="all">All robots</button>
-      {categories.map(category => <button class="filter-chip" data-filter={category.toLowerCase()}>{category}</button>)}
-    </div>
-
+  <section id="use-cases" class="use-cases">
     <div class="section-head">
-      <div>
-        <div class="eyebrow">Catalog preview</div>
-        <h2>Robots you can actually buy</h2>
-      </div>
-      <p>This is the beginning, not the finished catalog. We are adding products, prices, regional availability, sources, videos, and buyer context as we verify them.</p>
+      <div><div class="eyebrow">Start with the job</div><h2>What do you want a robot to do?</h2></div>
+      <p>Robot categories make more sense when they are organized around work. These are the lanes we are building out first.</p>
+    </div>
+    <div class="use-grid">
+      <a class="use-card image-card" href="#featured"><img src="/media/robots/pudu-bg1-pro.webp" alt="" /><span class="use-label">Cleaning</span><strong>Scrub large floors without pretending a consumer vacuum is an enterprise robot.</strong></a>
+      <a class="use-card image-card" href="#featured"><img src="/media/robots/pudu-mp2000.webp" alt="" /><span class="use-label">Warehouse + logistics</span><strong>Move pallets, carts, supplies and repetitive loads through predictable routes.</strong></a>
+      <a class="use-card image-card" href="#featured"><img src="/media/robots/ubtech-uworld-u1-ultra-female.webp" alt="" /><span class="use-label">Humanoids + interaction</span><strong>Reception, demonstrations, customer engagement, research and embodied AI.</strong></a>
+      <a class="use-card dark-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Quadrupeds</span><strong>Inspection, terrain, security and places wheels have opinions about.</strong><span>Browse seller catalog →</span></a>
+      <a class="use-card blue-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Public safety</span><strong>Firefighting, inspection, hazardous environments and emergency response.</strong><span>Browse seller catalog →</span></a>
+      <a class="use-card lime-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Education + research</span><strong>Robotics platforms for labs, classrooms, developers and embodied AI teams.</strong><span>Browse seller catalog →</span></a>
+    </div>
+  </section>
+
+  <section id="featured">
+    <div class="section-head">
+      <div><div class="eyebrow">Featured catalog</div><h2>Robots you can actually investigate.</h2></div>
+      <p>These records have local imagery, buyer context, use case notes, and a regional seller handoff. The catalog will grow as we verify more products.</p>
     </div>
 
     <div class="grid" id="robotGrid">
       {robots.map(robot => (
-        <article
-          class="robot-card"
-          data-robot-card
-          data-category={robot.data.category.toLowerCase()}
-          data-search={[robot.data.title, robot.data.category, robot.data.manufacturer, robot.data.buyer, robot.data.problem, robot.data.tags?.join(' ')].filter(Boolean).join(' ').toLowerCase()}
-        >
-          {robot.data.image && <img class="robot-image" src={robot.data.image} alt={robot.data.title} />}
+        <article class="robot-card">
+          {robot.data.image && <a class="robot-image-link" href={`/robots/${robot.slug}/`}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
           <div class="robot-card-body">
             <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
             <h3>{robot.data.title}</h3>
@@ -71,83 +84,90 @@ const categories = [...new Set(robots.map(r => r.data.category))];
             {robot.data.buyer && <p class="robot-buyer"><strong>Good fit to investigate:</strong> {robot.data.buyer}</p>}
             <div class="card-actions">
               <a class="btn blue" href={`/robots/${robot.slug}/`}>Explore robot</a>
+              {robot.data.seller_url && <a class="text-link" href={robot.data.seller_url} rel="sponsored nofollow">Seller listing →</a>}
             </div>
-          </div>
-          <div class="seller-bridge">
-            <span><strong>Buying handoff</strong><br/>Regional seller and current availability</span>
-            {robot.data.affiliate_url && <a href={robot.data.affiliate_url} rel="sponsored nofollow">RobotsUSA →</a>}
           </div>
         </article>
       ))}
     </div>
+    <div class="catalog-cta"><a class="btn secondary" href="/robots/">Open the robot catalog</a></div>
   </section>
 
-  <section class="handoff">
-    <div class="handoff-copy">
-      <div class="eyebrow">The handoff</div>
-      <h2>Better Than Awesome helps you figure out what to buy.</h2>
-      <p>When you are ready to price, quote, finance, or order, the interface deliberately becomes more transactional and hands you to the regional seller. Different site, same decision path.</p>
-      <a class="btn secondary" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow">Browse the USA seller</a>
+  <section class="editorial-split">
+    <div class="editorial-image">
+      <img src="/media/robots/ubtech-uworld-u1-ultra-female.webp" alt="UBTECH UWORLD U1 Ultra humanoid robot" />
     </div>
-    <div class="handoff-seller">
-      <div class="small">AFFILIATE PARTNER HANDOFF</div>
-      <strong>Ready to buy?<br/>Now it gets boring on purpose.</strong>
-      <div>Current prices, quote requests, availability, shipping, and checkout live with the seller.</div>
+    <div class="editorial-copy">
+      <div class="eyebrow">The editorial layer</div>
+      <h2>Buying a robot is not the same thing as buying a laptop.</h2>
+      <p>You need to think about the physical environment, actual workflow, safety, training, maintenance, integration, uptime, support, privacy, accessibility, and what happens when the machine gets confused.</p>
+      <p>That is where Better Than Awesome earns its keep. We are building the useful layer between robot hype and the checkout button.</p>
+      <a class="btn blue" href="/blog/">Read robot articles</a>
+    </div>
+  </section>
+
+  <section id="buyers" class="buyer-toolkit">
+    <div>
+      <div class="eyebrow">Free buyer toolkit</div>
+      <h2>Before you request a quote, know what you are asking for.</h2>
+      <p>The repository includes practical worksheets for robot discovery, workplace readiness, home readiness, procurement, ROI, evaluation and deployment questions.</p>
+    </div>
+    <div class="tool-grid">
+      <a href="/toolkit/robot-purchase-discovery-worksheet.md">Discovery worksheet</a>
+      <a href="/toolkit/workplace-robot-readiness-checklist.md">Workplace readiness</a>
+      <a href="/toolkit/robot-procurement-rfp-starter.md">RFP starter</a>
+      <a href="/toolkit/robot-roi-worksheet.md">ROI worksheet</a>
+      <a href="/toolkit/robot-evaluation-scorecard.md">Evaluation scorecard</a>
+      <a href="/toolkit/robot-deployment-questions.md">Deployment questions</a>
     </div>
   </section>
 
   <section id="organizations" class="org-banner">
     <div>
       <div class="eyebrow">Government · hospitals · campuses · warehouses · organizations</div>
-      <h2 style="margin:6px 0 0">Need procurement language instead of robot enthusiasm?</h2>
-      <p>We are building a deliberately plain institutional buying interface at buyrobots.betterthanawesome.com.</p>
+      <h2>Need procurement language instead of robot enthusiasm?</h2>
+      <p>Use the institutional buying path for requirements, evaluation criteria and quote planning.</p>
     </div>
-    <a class="btn secondary" href="/tests/procurement/">Open procurement Test 2</a>
+    <a class="btn secondary" href="/tests/procurement/">Open procurement interface</a>
   </section>
 
-  <section class="section-head">
+  <section class="seller-handoff">
     <div>
-      <div class="eyebrow">Editorial layer</div>
-      <h2>Not just product listings</h2>
+      <div class="eyebrow">Ready for pricing?</div>
+      <h2>Now it gets boring on purpose.</h2>
+      <p>Current price, configuration, shipping, financing, quote requests and checkout belong with the regional seller. Better Than Awesome may earn a commission from qualifying purchases through affiliate links.</p>
     </div>
-    <p>Videos, interviews, buyer guides, experiments, surveys, social content, and our own increasingly opinionated questions about where robots are actually useful.</p>
+    <a class="seller-button" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow">Browse RobotsUSA →</a>
   </section>
-
-  <section class="editorial-grid">
-    <article class="editorial-card">
-      <div class="meta">Buyer guide</div>
-      <h3>Before you buy a robot, start with the job.</h3>
-      <p>Define the repeated work first. Then evaluate autonomy, environment, staffing, safety, maintenance, service, and actual economic value.</p>
-      <a class="btn blue" href="/blog/">Read robot articles</a>
-    </article>
-    <article class="editorial-card">
-      <div class="meta">Aesthetic experiment 03</div>
-      <h3>The severe Helvetica one is staying.</h3>
-      <p>The stripped editorial version now lives permanently as a design test instead of disappearing when this marketplace changes.</p>
-      <a class="btn secondary" href="/tests/modernist/">Open Test 3</a>
-    </article>
-  </section>
-
-  <script is:inline>
-    const search = document.querySelector('#robotSearch');
-    const cards = [...document.querySelectorAll('[data-robot-card]')];
-    const chips = [...document.querySelectorAll('[data-filter]')];
-    let activeFilter = 'all';
-
-    function applyFilters() {
-      const q = (search?.value || '').trim().toLowerCase();
-      cards.forEach(card => {
-        const matchesSearch = !q || card.dataset.search.includes(q);
-        const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
-        card.style.display = matchesSearch && matchesCategory ? '' : 'none';
-      });
-    }
-
-    search?.addEventListener('input', applyFilters);
-    chips.forEach(chip => chip.addEventListener('click', () => {
-      activeFilter = chip.dataset.filter;
-      chips.forEach(c => c.classList.toggle('active', c === chip));
-      applyFilters();
-    }));
-  </script>
 </Base>
+
+<style>
+  .bta-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:62px 0 34px}
+  .bta-hero h1{font-size:clamp(58px,8vw,112px);line-height:.86;letter-spacing:-.07em;margin:14px 0 22px;max-width:8ch}
+  .bta-hero .lede{font-size:21px;line-height:1.5;max-width:680px}
+  .hero-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+  .hero-proof{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+  .hero-proof span{border:1px solid var(--line);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800;background:white}
+  .robot-collage{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;min-height:560px}
+  .robot-collage a{position:relative;display:block;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:white;text-decoration:none;color:var(--ink)}
+  .robot-collage img{width:100%;height:100%;object-fit:contain;padding:18px}
+  .robot-collage span{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(0,0,0,.82);color:white;padding:8px 10px;border-radius:999px;font-size:11px;font-weight:900}
+  .collage-stack{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+  .trust-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:18px 0 62px}
+  .trust-strip div{background:white;padding:18px}.trust-strip strong,.trust-strip span{display:block}.trust-strip span{font-size:13px;color:var(--muted);margin-top:3px}
+  .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .use-card{min-height:320px;border-radius:20px;overflow:hidden;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;border:1px solid var(--line);position:relative}
+  .use-card strong{font-size:25px;line-height:1.05;letter-spacing:-.035em;max-width:16ch}.use-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;margin-bottom:9px}
+  .image-card{color:white;background:#111}.image-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0c0e12;padding:22px;z-index:0}.image-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 28%,rgba(0,0,0,.86) 100%)}.image-card>*{position:relative;z-index:1}
+  .dark-card{background:#121417;color:white}.blue-card{background:var(--bta-blue);color:white}.lime-card{background:var(--bta-lime);color:#101414}
+  .use-card>span:last-child{font-size:12px;font-weight:900;margin-top:16px}
+  .robot-image-link{display:block;background:#fff}.catalog-cta{text-align:center;margin:22px 0 64px}.text-link{font-weight:900;text-decoration:none}
+  .editorial-split{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:24px;overflow:hidden;background:#080c17;color:white;margin:72px 0}
+  .editorial-image{min-height:520px;background:radial-gradient(circle at center,#163b87 0,#091022 52%,#05070d 100%)}.editorial-image img{width:100%;height:100%;object-fit:contain;padding:34px;filter:drop-shadow(0 28px 48px rgba(0,0,0,.45))}
+  .editorial-copy{padding:44px;align-self:center}.editorial-copy h2{font-size:clamp(38px,5vw,64px);line-height:.95;letter-spacing:-.055em;margin:10px 0 18px}.editorial-copy p{color:#c4cbda;line-height:1.55;font-size:17px}
+  .buyer-toolkit{display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:34px;border:1px solid var(--line);border-radius:22px;background:white;margin:0 0 22px}.buyer-toolkit h2{font-size:42px;line-height:1;letter-spacing:-.045em;margin:8px 0 12px}.buyer-toolkit p{color:var(--muted);line-height:1.5}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tool-grid a{padding:16px;border:1px solid var(--line);border-radius:14px;text-decoration:none;font-weight:850;background:#f8f8f5}
+  .org-banner h2{margin:6px 0 0}.seller-handoff{display:flex;justify-content:space-between;gap:30px;align-items:center;border-radius:24px;padding:34px;background:#b40016;color:white;margin:22px 0 32px}.seller-handoff h2{font-size:46px;line-height:.95;letter-spacing:-.05em;margin:8px 0 10px}.seller-handoff p{max-width:780px;line-height:1.5;color:#ffe8eb}.seller-button{background:white;color:#9c0013;text-decoration:none;font-weight:950;padding:14px 18px;border-radius:999px;white-space:nowrap}
+  @media(max-width:900px){.bta-hero,.editorial-split,.buyer-toolkit{grid-template-columns:1fr}.robot-collage{min-height:460px}.use-grid{grid-template-columns:1fr 1fr}.trust-strip{grid-template-columns:1fr}.seller-handoff{align-items:flex-start;flex-direction:column}}
+  @media(max-width:620px){.robot-collage{grid-template-columns:1fr;min-height:auto}.collage-main{min-height:360px}.collage-stack{grid-template-columns:1fr 1fr;grid-template-rows:none}.collage-stack a{min-height:220px}.use-grid,.tool-grid{grid-template-columns:1fr}.bta-hero h1{font-size:58px}.editorial-image{min-height:380px}}
+</style>
