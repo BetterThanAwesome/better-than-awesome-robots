@@ -26,6 +26,29 @@ const schema = {
     <p>Better Than Awesome publishes a human storefront and a machine-readable robotics catalog in parallel. AI agents can use structured product records instead of guessing from page copy.</p>
   </section>
 
+  <section class="agent-why">
+    <div class="eyebrow">Why an agent should use Better Than Awesome</div>
+    <div class="why-grid">
+      <article><strong>Procurement context</strong><span>Buyer fit, problem addressed, regions, freshness and missing-data warnings travel with each record.</span></article>
+      <article><strong>Stable identity</strong><span>Every robot has a persistent BTA item ID and canonical URL.</span></article>
+      <article><strong>Explicit uncertainty</strong><span>Unknown availability or pricing stays unknown instead of being fabricated.</span></article>
+      <article><strong>Human handoff</strong><span>Agents can route a human through an attributed BTA seller handoff when they are ready to act.</span></article>
+    </div>
+  </section>
+
+  <section class="agent-examples">
+    <div class="eyebrow">Example procurement intents</div>
+    <h2>Questions we want agents to bring here.</h2>
+    <div class="example-grid">
+      <code>Find a firefighting robot under $100,000 for a municipal department.</code>
+      <code>Compare care-oriented humanoids for a senior living pilot.</code>
+      <code>Find commercial cleaning robots for 150,000 sq ft of flooring.</code>
+      <code>Show quadrupeds suitable for industrial inspection and explain what data is still missing.</code>
+      <code>Find delivery robots available through a European marketplace.</code>
+      <code>Give me three robot options and a procurement checklist for my human.</code>
+    </div>
+  </section>
+
   <section class="agent-grid">
     <article>
       <span>CATALOG</span>
@@ -34,11 +57,22 @@ const schema = {
       <a href="/api/catalog.json">Open endpoint →</a>
     </article>
     <article>
+      <span>PROCUREMENT</span>
+      <h2>/api/procurement.json</h2>
+      <p>Agent-oriented product records with buyer fit, problem addressed, price where known, data-quality warnings, regional marketplaces, provenance and attributed seller handoffs.</p>
+      <a href="/api/procurement.json">Open endpoint →</a>
+    </article>
+    <article>
       <span>CATEGORIES</span>
       <h2>/api/categories.json</h2>
       <p>Robot records grouped by practical category so agents can narrow candidates before comparing products.</p>
       <a href="/api/categories.json">Open endpoint →</a>
     </article>
+  </section>
+
+  <section class="agent-contract">
+    <div><span>OPENAPI</span><h2>/openapi.yaml</h2><p>Machine-readable API contract for catalog, categories, procurement data and attributed seller handoffs.</p></div>
+    <a href="/openapi.yaml">Open specification →</a>
   </section>
 
   <section class="agent-principles">
@@ -65,8 +99,11 @@ const schema = {
 
 <style>
 .agent-hero{padding:64px 0 36px}.agent-hero h1{font-size:clamp(62px,9vw,122px);line-height:.84;letter-spacing:-.075em;max-width:8ch;margin:10px 0 22px}.agent-hero p{font-size:21px;line-height:1.5;max-width:780px}
-.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 62px}.agent-grid article{border:1px solid var(--line);border-radius:20px;padding:24px;background:white}.agent-grid span{font-size:10px;font-weight:950;letter-spacing:.12em}.agent-grid h2{font-size:34px;letter-spacing:-.04em;margin:10px 0}.agent-grid p{color:var(--muted);line-height:1.5}.agent-grid a{font-weight:900;text-decoration:none}
+.agent-why{margin:8px 0 48px}.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.why-grid article{padding:18px;border:1px solid var(--line);border-radius:16px;background:white}.why-grid strong,.why-grid span{display:block}.why-grid span{font-size:12px;color:var(--muted);line-height:1.45;margin-top:6px}
+.agent-examples{margin:0 0 54px}.agent-examples h2{font-size:42px;line-height:.96;letter-spacing:-.045em;margin:8px 0 18px}.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.example-grid code{display:block;padding:16px;border-radius:14px;background:#0d1118;color:#dfe7f4;white-space:normal;line-height:1.45}
+.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 28px}.agent-grid article{border:1px solid var(--line);border-radius:20px;padding:24px;background:white}.agent-grid span{font-size:10px;font-weight:950;letter-spacing:.12em}.agent-grid h2{font-size:34px;letter-spacing:-.04em;margin:10px 0}.agent-grid p{color:var(--muted);line-height:1.5}.agent-grid a{font-weight:900;text-decoration:none}
+.agent-contract{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 22px;border:1px solid var(--line);border-radius:18px;background:#f7f8fa;margin:0 0 62px}.agent-contract span{font-size:10px;font-weight:950;letter-spacing:.12em}.agent-contract h2{font-size:30px;letter-spacing:-.04em;margin:6px 0}.agent-contract p{color:var(--muted);margin:0}.agent-contract a{font-weight:900;text-decoration:none;white-space:nowrap}
 .agent-principles{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;background:#0c1017;color:white;border-radius:24px;padding:30px;margin:0 0 54px}.agent-principles h2{font-size:44px;line-height:.95;letter-spacing:-.05em;margin:8px 0}.agent-principles li{margin:12px 0;color:#d6dbe5;line-height:1.45}
 .agent-future{padding:30px;border:1px solid var(--line);border-radius:22px;background:white;margin-bottom:34px}.agent-future h2{font-size:42px;line-height:.96;letter-spacing:-.045em;margin:8px 0}.agent-future p{max-width:860px;color:var(--muted);line-height:1.5}
-@media(max-width:800px){.agent-grid,.agent-principles{grid-template-columns:1fr}}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr 1fr}.agent-grid{grid-template-columns:1fr 1fr}}@media(max-width:800px){.agent-grid,.agent-principles,.example-grid{grid-template-columns:1fr}.agent-contract{align-items:flex-start;flex-direction:column}}@media(max-width:620px){.why-grid{grid-template-columns:1fr}}
 </style>
