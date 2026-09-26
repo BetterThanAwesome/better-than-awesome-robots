@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const robots = (await getCollection('robots')).filter(r => r.data.status === 'published');
+const total = robots.length;
+const groups = [
+  {name:'Humanoids', match:['Humanoid research','Industrial humanoid','Interactive humanoid','Commercial service']},
+  {name:'Quadrupeds', match:['Quadruped','Industrial quadruped']},
+  {name:'Cleaning', match:['Commercial cleaning']},
+  {name:'Delivery & hospitality', match:['Commercial delivery','Hospitality delivery','Hospitality automation']},
+  {name:'Warehouse & material handling', match:['Warehouse logistics','Material handling']},
+  {name:'Public safety', match:['Public safety']},
+  {name:'Construction', match:['Construction robotics']}
+].map(group => ({
+  ...group,
+  count: robots.filter(r => group.match.includes(r.data.category)).length
+}));
+const marketplaceTotal = 1271;
+const coveragePct = ((total / marketplaceTotal) * 100).toFixed(1);
+---
+<Base title="Catalog Coverage | Better Than Awesome" description="See how much of the current robot marketplace Better Than Awesome has covered in depth.">
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
+    <nav class="nav"><a href="/robots/">Catalog</a><a href="/categories/">Categories</a><a href="/">Home</a></nav>
+  </header>
+
+  <section class="coverage-hero">
+    <div class="eyebrow">Coverage tracker</div>
+    <h1>We are building depth, not pretending we already have it.</h1>
+    <p>RobotsUSA currently exposes 1,271 catalog items. Better Than Awesome has {total} published editorial robot records. Some marketplace items are accessories, variants, software and parts, so one-to-one coverage is not the goal. Useful coverage is.</p>
+    <div class="coverage-number"><strong>{coveragePct}%</strong><span>raw item-count coverage</span></div>
+  </section>
+
+  <section class="coverage-grid">
+    {groups.map(group => (
+      <article class="coverage-card">
+        <span>{group.name}</span>
+        <strong>{group.count}</strong>
+        <small>editorial records</small>
+      </article>
+    ))}
+  </section>
+
+  <section class="coverage-note">
+    <h2>What “comprehensive” means here</h2>
+    <p>For Better Than Awesome, comprehensive does not mean copying every battery, accessory and near-duplicate SKU. It means every major robot use case has enough representative products, price points, manufacturers and buyer guidance that someone can make a sensible first decision without leaving the site confused.</p>
+    <p>Current priority gaps are medical and healthcare robotics, education-specific platforms, cobots, drones and UGVs, construction, inspection, agriculture, consumer robots and broader brand coverage.</p>
+  </section>
+</Base>
+
+<style>
+.coverage-hero{padding:60px 0 28px;position:relative}.coverage-hero h1{font-size:clamp(56px,8vw,106px);line-height:.87;letter-spacing:-.07em;max-width:9ch;margin:10px 0 20px}.coverage-hero p{max-width:780px;font-size:19px;line-height:1.55}.coverage-number{display:inline-flex;flex-direction:column;margin-top:20px;padding:18px 22px;border-radius:20px;background:#111;color:white}.coverage-number strong{font-size:48px;line-height:1}.coverage-number span{font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-top:5px}
+.coverage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:22px 0 46px}.coverage-card{padding:20px;border:1px solid var(--line);border-radius:18px;background:white}.coverage-card span,.coverage-card small{display:block}.coverage-card strong{display:block;font-size:48px;line-height:1;margin:10px 0}.coverage-card span{font-weight:800}.coverage-card small{color:var(--muted)}
+.coverage-note{padding:30px;border-radius:22px;background:#101318;color:white;margin-bottom:34px}.coverage-note h2{font-size:40px;letter-spacing:-.045em;margin:0 0 12px}.coverage-note p{color:#cfd4dd;line-height:1.55;max-width:900px}
+</style>
