@@ -5,6 +5,8 @@ manufacturer: "PUDU"
 price_usd: 15995
 status: "published"
 region: ["usa"]
+image: "https://cdn.pudutech.com/official-website/bellabotpro/S3_4.png"
+image_source_url: "https://www.pudurobotics.com/en/products/bellabotpro"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 verified_date: "2026-09-26"
 buyer: "Hotels, restaurants, venues, retail and customer-facing service operations"
