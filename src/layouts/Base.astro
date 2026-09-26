@@ -28,10 +28,24 @@ const socialImage = image ? new URL(image, Astro.site || 'https://betterthanawes
   {socialImage && <meta name="twitter:image" content={socialImage} />}
   <script type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Better Than Awesome',
-    url: 'https://betterthanawesome.com',
-    description: 'Robot discovery, buyer guidance and affiliate marketplace navigation.'
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://betterthanawesome.com/#organization',
+        name: 'Better Than Awesome',
+        url: 'https://betterthanawesome.com',
+        email: 'hello@betterthanawesome.com',
+        description: 'Robot discovery, buyer guidance, technology editorial and affiliate marketplace navigation.'
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://betterthanawesome.com/#website',
+        name: 'Better Than Awesome',
+        url: 'https://betterthanawesome.com',
+        publisher: { '@id': 'https://betterthanawesome.com/#organization' },
+        description: 'Robot discovery, buyer guidance and affiliate marketplace navigation.'
+      }
+    ]
   })}></script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
 </head>
