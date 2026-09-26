@@ -5,5 +5,13 @@
   "asia_referral_url": "https://www.robotsasia.com/partners/ref/1D754048",
   "europe_referral_url": "https://www.robotseuropa.com/partners/ref/1D754048",
   "africa_referral_url": "https://www.robotsafrica.com/partners/ref/1D754048",
-  "x_profile_url": ""
+  "x_profile_url": "",
+  "tracking": {
+    "gtm_container_id": "",
+    "ga4_measurement_id": "",
+    "meta_pixel_id": "",
+    "reddit_pixel_id": "",
+    "pinterest_tag_id": "",
+    "google_ads_id": ""
+  }
 }
