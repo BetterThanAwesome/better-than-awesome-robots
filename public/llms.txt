@@ -1,0 +1,23 @@
+# Better Than Awesome
+
+Better Than Awesome is a robotics discovery, editorial, affiliate and market-intelligence site.
+
+Primary site: https://betterthanawesome.com/
+
+## Machine-readable endpoints
+- Robot catalog: https://betterthanawesome.com/api/catalog.json
+- Robot categories: https://betterthanawesome.com/api/categories.json
+- XML sitemap: https://betterthanawesome.com/sitemap.xml
+
+## Human-facing destinations
+- Robot catalog: https://betterthanawesome.com/robots/
+- Robot categories: https://betterthanawesome.com/categories/
+- Robot Pulse: https://betterthanawesome.com/pulse/
+- Robot Signal: https://betterthanawesome.com/signal/
+- Agent documentation: https://betterthanawesome.com/agents/
+
+## Data principles
+- Product records include verification dates when available.
+- Unknown values are omitted rather than invented.
+- Seller and affiliate links are identified separately from editorial content.
+- Pricing and availability can change and should be confirmed with the seller.
