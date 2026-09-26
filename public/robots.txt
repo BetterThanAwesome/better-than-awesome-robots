@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://betterthanawesome.com/sitemap.xml
