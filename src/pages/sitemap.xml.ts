@@ -21,6 +21,7 @@ export async function GET() {
     '/pulse/',
     '/signal/',
     '/agents/',
+    '/privacy/',
     '/tests/procurement/'
   ];
 
