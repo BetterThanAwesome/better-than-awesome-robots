@@ -4,23 +4,56 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const robots = await getCollection('robots');
-  return robots
-    .filter(r => r.data.status === 'published')
-    .map(robot => ({ params: { slug: robot.slug }, props: { robot } }));
+  return robots.filter(r => r.data.status === 'published').map(robot => ({ params: { slug: robot.slug }, props: { robot } }));
 }
-
 const { robot } = Astro.props;
 const { Content } = await robot.render();
 ---
-<Base title={`${robot.data.title} | Better Than Awesome`} description={robot.data.hook || robot.data.problem || robot.data.title}>
-  <p><a href="/">Back to robot catalog</a></p>
-  <section class="hero">
-    <div class="meta">{robot.data.category}</div>
-    <h1>{robot.data.title}</h1>
-    {robot.data.image && <img src={robot.data.image} alt={robot.data.title} style="max-width:520px;width:100%;object-fit:contain" />}
-    {robot.data.price_usd && <div class="price">${robot.data.price_usd.toLocaleString()}</div>}
-    {robot.data.affiliate_url && <a class="btn" href={robot.data.affiliate_url} rel="sponsored nofollow">See seller</a>}
+<Base title={robot.data.title + ' | Better Than Awesome'} description={robot.data.hook || robot.data.problem || robot.data.title}>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
+    <nav class="nav"><a href="/robots/">Catalog</a><a href="/blog/">Articles</a><a href="/#buyers">Buyer toolkit</a></nav>
+  </header>
+
+  <section class="product-hero">
+    <div class="product-visual">{robot.data.image && <img src={robot.data.image} alt={robot.data.title} />}</div>
+    <div class="product-copy">
+      <div class="eyebrow">{robot.data.category} · {robot.data.manufacturer}</div>
+      <h1>{robot.data.title}</h1>
+      {robot.data.hook && <p class="product-hook">{robot.data.hook}</p>}
+      {robot.data.price_usd && <div class="price">{'$' + robot.data.price_usd.toLocaleString()}</div>}
+      {robot.data.buyer && <div class="fit"><strong>Good fit to investigate</strong><span>{robot.data.buyer}</span></div>}
+      <div class="product-actions">
+        {robot.data.seller_url && <a class="btn blue" href={robot.data.seller_url} rel="sponsored nofollow">View seller listing</a>}
+        {robot.data.affiliate_url && !robot.data.seller_url && <a class="btn blue" href={robot.data.affiliate_url} rel="sponsored nofollow">Browse seller</a>}
+        <a class="btn secondary" href="/robots/">Back to catalog</a>
+      </div>
+      {robot.data.verified_date && <p class="verified">Catalog record last checked {robot.data.verified_date}. Pricing and availability can change.</p>}
+    </div>
   </section>
-  <article class="prose"><Content /></article>
-  <p class="note">Reference pricing and availability can change. Verify current configuration, shipping, support and suitability before purchasing.</p>
+
+  <section class="product-body">
+    <article class="prose"><Content /></article>
+    <aside class="buying-card">
+      <div class="eyebrow">Before you buy</div>
+      <h2>Ask boring questions.</h2>
+      <ul>
+        <li>What exact job is the robot replacing or supporting?</li>
+        <li>What environment will it operate in?</li>
+        <li>Who owns charging, maintenance and recovery?</li>
+        <li>What integrations or infrastructure are required?</li>
+        <li>What support exists after delivery?</li>
+      </ul>
+      <a href="/#buyers">Open the buyer toolkit →</a>
+    </aside>
+  </section>
+
+  <section class="affiliate-note">Better Than Awesome may earn a commission from qualifying purchases through affiliate links. Seller and manufacturer specifications should be independently confirmed for your use case.</section>
 </Base>
+
+<style>
+.product-hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:52px 0}.product-visual{min-height:560px;border-radius:26px;background:radial-gradient(circle at center,#eef4ff,#fff 62%);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}.product-visual img{width:100%;height:560px;object-fit:contain;padding:34px;filter:drop-shadow(0 28px 35px rgba(0,0,0,.2))}
+.product-copy h1{font-size:clamp(50px,6vw,82px);line-height:.9;letter-spacing:-.06em;margin:12px 0 18px}.product-hook{font-size:21px;line-height:1.45}.fit{display:flex;flex-direction:column;gap:4px;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:18px 0}.fit span{color:var(--muted);line-height:1.45}.product-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.verified{font-size:12px;color:var(--muted);margin-top:14px}
+.product-body{display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:start}.buying-card{position:sticky;top:20px;border-radius:20px;background:#101318;color:white;padding:26px;margin-top:32px}.buying-card h2{font-size:35px;letter-spacing:-.04em;margin:8px 0}.buying-card li{margin:10px 0;line-height:1.4;color:#d6d9df}.buying-card a{color:#fff;font-weight:900}.affiliate-note{margin:30px 0;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:white;font-size:13px;line-height:1.5}
+@media(max-width:820px){.product-hero,.product-body{grid-template-columns:1fr}.product-visual{min-height:420px}.product-visual img{height:420px}.buying-card{position:static}}
+</style>
