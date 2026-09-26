@@ -1,0 +1,58 @@
+openapi: 3.1.0
+info:
+  title: Better Than Awesome Robot Procurement API
+  version: 1.0.0
+  description: Machine-readable robot discovery and procurement-assistance data for AI agents and developers.
+servers:
+  - url: https://betterthanawesome.com
+paths:
+  /api/catalog.json:
+    get:
+      summary: Get the public robot catalog
+      responses:
+        '200':
+          description: Published Better Than Awesome robot records
+          content:
+            application/json: {}
+  /api/categories.json:
+    get:
+      summary: Get robots grouped by category
+      responses:
+        '200':
+          description: Robot categories and their products
+          content:
+            application/json: {}
+  /api/procurement.json:
+    get:
+      summary: Get procurement-oriented robot records
+      description: Returns buyer fit, problem addressed, price where known, availability confidence, regions, provenance and attributed seller handoff URLs.
+      responses:
+        '200':
+          description: Procurement-oriented robot dataset
+          content:
+            application/json: {}
+  /go/{slug}:
+    get:
+      summary: Hand a buyer to the attributed seller route
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: source
+          required: false
+          description: Attribution source such as agent, chatgpt, gemini, search, reddit, newsletter or human.
+          schema:
+            type: string
+        - in: query
+          name: region
+          required: false
+          description: Preferred regional marketplace when available.
+          schema:
+            type: string
+            enum: [usa, international, asia, europe, africa]
+      responses:
+        '302':
+          description: Redirect to the seller or regional marketplace
