@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Privacy & Tracking | Better Than Awesome" description="How Better Than Awesome measures site usage, advertising attribution and optional audience building.">
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Privacy</span></a>
+    <nav class="nav"><a href="/">Home</a><a href="/signal/">Robot Signal</a><a href="/agents/">AI Agents</a></nav>
+  </header>
+
+  <section class="privacy-hero">
+    <div class="eyebrow">Privacy + measurement</div>
+    <h1>We want to learn what is useful without pretending tracking is invisible.</h1>
+    <p>Better Than Awesome uses a first-party event layer to understand which robot pages, categories, tools and seller handoffs are useful. Optional analytics and advertising technologies are loaded only after the visitor chooses to allow them.</p>
+  </section>
+
+  <section class="privacy-grid">
+    <article><h2>Necessary operation</h2><p>Basic page delivery, security and server operation may produce ordinary infrastructure logs needed to run the site.</p></article>
+    <article><h2>Analytics</h2><p>If allowed, we measure page views, navigation, content interactions, traffic sources, countries at a coarse level and outbound seller activity so we can improve the site.</p></article>
+    <article><h2>Advertising + audiences</h2><p>If allowed, advertising tags may be used to measure campaign performance and create audiences for future advertising or retargeting on platforms such as Google, Meta, Reddit and Pinterest.</p></article>
+    <article><h2>First-party knowledge layer</h2><p>Consented behavioral events can also be stored by Better Than Awesome so our own market-intelligence system is not dependent on any single advertising platform.</p></article>
+  </section>
+
+  <section class="privacy-copy">
+    <h2>What we intentionally avoid</h2>
+    <p>The current first-party event model does not intentionally store passwords, payment details or the contents of private communications. We also do not need to infer sensitive personal characteristics in order to understand whether somebody found a robot page useful.</p>
+
+    <h2>Retargeting</h2>
+    <p>Retargeting is optional advertising. If enabled later, a person who allowed marketing technologies may become eligible for an advertising audience based on site activity, such as visiting robot categories or product pages. The exact platforms used will depend on which advertising accounts Better Than Awesome activates.</p>
+
+    <h2>Changing your choice</h2>
+    <p>Tracking preferences are stored in the browser. A future preferences control will allow them to be changed directly on the site. Until then, clearing this site's local storage resets the consent choice and causes the banner to appear again.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about Better Than Awesome tracking can be sent to <a href="mailto:hello@betterthanawesome.com">hello@betterthanawesome.com</a>.</p>
+  </section>
+</Base>
+
+<style>
+.privacy-hero{padding:62px 0 34px}.privacy-hero h1{font-size:clamp(54px,7vw,100px);line-height:.87;letter-spacing:-.067em;max-width:10ch;margin:10px 0 18px}.privacy-hero p{font-size:20px;line-height:1.5;max-width:840px}
+.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 54px}.privacy-grid article{border:1px solid var(--line);border-radius:18px;padding:22px;background:white}.privacy-grid h2{font-size:26px;letter-spacing:-.035em;margin:0 0 8px}.privacy-grid p,.privacy-copy p{color:var(--muted);line-height:1.55}.privacy-copy{max-width:900px;margin-bottom:40px}.privacy-copy h2{font-size:34px;letter-spacing:-.04em;margin:34px 0 8px}
+@media(max-width:700px){.privacy-grid{grid-template-columns:1fr}}
+</style>
