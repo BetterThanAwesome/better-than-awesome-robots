@@ -1,31 +1,85 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+
 const robots = (await getCollection('robots')).filter(r => r.data.status === 'published');
+const categories = [...new Set(robots.map(r => r.data.category))];
 ---
-<Base title="Robot Catalog | Better Than Awesome">
+
+<Base title="Robot Catalog | Better Than Awesome" description="Browse real robots by category, manufacturer, use case and buyer fit.">
   <header class="site-header">
     <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
-    <nav class="nav"><a href="/">Home</a><a href="/blog/">Articles</a></nav>
+    <nav class="nav"><a href="/">Home</a><a href="/blog/">Articles</a><a href="/#buyers">Buyer toolkit</a></nav>
   </header>
-  <section class="market-hero" style="grid-template-columns:1fr">
-    <div>
-      <div class="eyebrow">Full catalog</div>
-      <h1>Robots, organized by what they do.</h1>
-      <p class="lede">This catalog will keep growing as products, regional seller links, prices, research, images, and buyer guidance are added.</p>
-    </div>
+
+  <section class="catalog-hero">
+    <div class="eyebrow">Robot catalog</div>
+    <h1>Robots, organized by what they actually do.</h1>
+    <p>Search the growing catalog by product, manufacturer, job or category. We add buyer context before sending you to a seller.</p>
   </section>
-  <section class="grid">
+
+  <div class="search-shell">
+    <strong>Search</strong>
+    <input id="robotSearch" type="search" placeholder="cleaning, humanoid, PUDU, warehouse..." aria-label="Search robot catalog" />
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-chip active" data-filter="all">All robots</button>
+    {categories.map(category => <button class="filter-chip" data-filter={category.toLowerCase()}>{category}</button>)}
+  </div>
+
+  <section class="grid" id="robotGrid">
     {robots.map(robot => (
-      <article class="robot-card">
-        {robot.data.image && <img class="robot-image" src={robot.data.image} alt={robot.data.title} />}
+      <article class="robot-card" data-robot-card data-category={robot.data.category.toLowerCase()} data-search={[robot.data.title,robot.data.category,robot.data.manufacturer,robot.data.buyer,robot.data.problem,robot.data.tags?.join(' ')].filter(Boolean).join(' ').toLowerCase()}>
+        {robot.data.image && <a href={`/robots/${robot.slug}/`}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
         <div class="robot-card-body">
           <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
           <h3>{robot.data.title}</h3>
-          <p>{robot.data.hook}</p>
-          <div class="card-actions"><a class="btn blue" href={`/robots/${robot.slug}/`}>Explore robot</a></div>
+          {robot.data.hook && <p>{robot.data.hook}</p>}
+          {robot.data.buyer && <p class="robot-buyer"><strong>Investigate for:</strong> {robot.data.buyer}</p>}
+          <div class="card-actions">
+            <a class="btn blue" href={`/robots/${robot.slug}/`}>Explore robot</a>
+            {robot.data.seller_url && <a class="catalog-seller" href={robot.data.seller_url} rel="sponsored nofollow">Seller listing →</a>}
+          </div>
         </div>
       </article>
     ))}
   </section>
+
+  <section class="catalog-bottom">
+    <div>
+      <div class="eyebrow">Looking for something else?</div>
+      <h2>The seller catalog is much larger than ours.</h2>
+      <p>Better Than Awesome is intentionally adding deeper editorial records in stages. For the broader current marketplace, use the RobotsUSA catalog.</p>
+    </div>
+    <a class="btn blue" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow">Browse RobotsUSA</a>
+  </section>
+
+  <script is:inline>
+    const input = document.querySelector('#robotSearch');
+    const cards = [...document.querySelectorAll('[data-robot-card]')];
+    const chips = [...document.querySelectorAll('[data-filter]')];
+    let active = 'all';
+    const apply = () => {
+      const q = (input?.value || '').trim().toLowerCase();
+      cards.forEach(card => {
+        const filterOk = active === 'all' || card.dataset.category === active;
+        const searchOk = !q || card.dataset.search.includes(q);
+        card.hidden = !(filterOk && searchOk);
+      });
+    };
+    input?.addEventListener('input', apply);
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      chips.forEach(x => x.classList.remove('active'));
+      chip.classList.add('active');
+      active = chip.dataset.filter;
+      apply();
+    }));
+  </script>
 </Base>
+
+<style>
+.catalog-hero{padding:58px 0 28px;max-width:980px}.catalog-hero h1{font-size:clamp(52px,7vw,96px);line-height:.9;letter-spacing:-.065em;margin:12px 0 18px}.catalog-hero p{font-size:20px;line-height:1.5;max-width:720px}
+.catalog-seller{font-weight:900;text-decoration:none}.catalog-bottom{margin:64px 0 24px;padding:30px;border-radius:22px;background:#101318;color:white;display:flex;align-items:center;justify-content:space-between;gap:24px}.catalog-bottom h2{font-size:40px;letter-spacing:-.045em;margin:7px 0}.catalog-bottom p{color:#c8cbd0;max-width:740px}
+@media(max-width:760px){.catalog-bottom{align-items:flex-start;flex-direction:column}}
+</style>
