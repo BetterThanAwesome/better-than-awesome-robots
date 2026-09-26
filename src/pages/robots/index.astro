@@ -29,7 +29,9 @@ const categories = [...new Set(robots.map(r => r.data.category))];
   <section class="grid" id="robotGrid">
     {robots.map(robot => (
       <article class="robot-card" data-robot-card data-category={robot.data.category.toLowerCase()} data-search={[robot.data.title,robot.data.category,robot.data.manufacturer,robot.data.buyer,robot.data.problem,robot.data.tags?.join(' ')].filter(Boolean).join(' ').toLowerCase()}>
-        {robot.data.image && <a href={'/robots/' + robot.slug + '/'}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
+        {robot.data.image
+  ? <a href={'/robots/' + robot.slug + '/'}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>
+  : <a class="catalog-poster" href={'/robots/' + robot.slug + '/'}><span>{robot.data.category}</span><strong>{robot.data.manufacturer || 'Robot'}</strong></a>}
         <div class="robot-card-body">
           <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
           <h3>{robot.data.title}</h3>
@@ -78,6 +80,6 @@ const categories = [...new Set(robots.map(r => r.data.category))];
 
 <style>
 .catalog-hero{padding:58px 0 28px;max-width:980px}.catalog-hero h1{font-size:clamp(52px,7vw,96px);line-height:.9;letter-spacing:-.065em;margin:12px 0 18px}.catalog-hero p{font-size:20px;line-height:1.5;max-width:720px}
-.catalog-seller{font-weight:900;text-decoration:none}.catalog-bottom{margin:64px 0 24px;padding:30px;border-radius:22px;background:#101318;color:white;display:flex;align-items:center;justify-content:space-between;gap:24px}.catalog-bottom h2{font-size:40px;letter-spacing:-.045em;margin:7px 0}.catalog-bottom p{color:#c8cbd0;max-width:740px}
+.catalog-seller{font-weight:900;text-decoration:none}.catalog-poster{aspect-ratio:1/.9;padding:24px;background:linear-gradient(145deg,#0a0d14,#153d83);color:white;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--line)}.catalog-poster span{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:#9cc8ff}.catalog-poster strong{font-size:34px;line-height:1;letter-spacing:-.04em;margin-top:7px}.catalog-bottom{margin:64px 0 24px;padding:30px;border-radius:22px;background:#101318;color:white;display:flex;align-items:center;justify-content:space-between;gap:24px}.catalog-bottom h2{font-size:40px;letter-spacing:-.045em;margin:7px 0}.catalog-bottom p{color:#c8cbd0;max-width:740px}
 @media(max-width:760px){.catalog-bottom{align-items:flex-start;flex-direction:column}}
 </style>
