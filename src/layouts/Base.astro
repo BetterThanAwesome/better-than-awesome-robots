@@ -56,7 +56,7 @@ const socialImage = image ? new URL(image, Astro.site || 'https://betterthanawes
 <body>
   <main class="wrap">
     <slot />
-    <footer><strong>Better Than Awesome</strong><br/>Robots, technology and things worth getting excited about.<br/><a href="mailto:hello@betterthanawesome.com">hello@betterthanawesome.com</a></footer>
+    <footer><strong>Better Than Awesome</strong><br/>Robots, technology and things worth getting excited about.<br/><a href="mailto:hello@betterthanawesome.com">hello@betterthanawesome.com</a> · <a href="/privacy/">Privacy & tracking</a></footer>
   </main>
   <script type="module" is:inline>
     import { initTracking } from '/tracking.js';
