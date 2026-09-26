@@ -8,8 +8,24 @@ export async function getStaticPaths() {
 }
 const { robot } = Astro.props;
 const { Content } = await robot.render();
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: robot.data.title,
+  description: robot.data.hook || robot.data.problem || robot.data.title,
+  brand: robot.data.manufacturer ? { '@type': 'Brand', name: robot.data.manufacturer } : undefined,
+  image: robot.data.image ? [robot.data.image] : undefined,
+  category: robot.data.category,
+  offers: robot.data.price_usd ? {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    price: robot.data.price_usd,
+    availability: 'https://schema.org/InStock',
+    url: robot.data.seller_url || robot.data.affiliate_url
+  } : undefined
+};
 ---
-<Base title={robot.data.title + ' | Better Than Awesome'} description={robot.data.hook || robot.data.problem || robot.data.title}>
+<Base title={robot.data.title + ' | Better Than Awesome'} description={robot.data.hook || robot.data.problem || robot.data.title} image={robot.data.image} schema={productSchema}>
   <header class="site-header">
     <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
     <nav class="nav"><a href="/robots/">Catalog</a><a href="/blog/">Articles</a><a href="/#buyers">Buyer toolkit</a></nav>
