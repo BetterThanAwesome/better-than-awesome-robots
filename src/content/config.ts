@@ -9,6 +9,7 @@ const robots = defineCollection({
     status: z.enum(['draft','review','published']).default('draft'),
     region: z.array(z.string()).default(['usa']),
     image: z.string().optional(),
+    image_source_url: z.string().url().optional(),
     affiliate_url: z.string().url().optional(),
     seller_url: z.string().url().optional(),
     verified_date: z.string().optional(),
