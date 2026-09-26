@@ -6,7 +6,7 @@ const robots = (await getCollection('robots'))
   .filter(r => r.data.status === 'published')
   .sort((a,b) => Number(b.data.featured) - Number(a.data.featured));
 
-const featured = robots.slice(0, 3);
+const featured = robots.filter(r => Boolean(r.data.image)).slice(0, 3);
 ---
 
 <Base title="Better Than Awesome | Robots You Can Actually Buy" description="Find robots by job, compare practical use cases, read buyer guidance, and connect with regional sellers when you are ready to quote or buy.">
@@ -76,7 +76,9 @@ const featured = robots.slice(0, 3);
     <div class="grid" id="robotGrid">
       {robots.map(robot => (
         <article class="robot-card">
-          {robot.data.image && <a class="robot-image-link" href={`/robots/${robot.slug}/`}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
+          {robot.data.image
+  ? <a class="robot-image-link" href={`/robots/${robot.slug}/`}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>
+  : <a class="robot-image-link robot-poster" href={`/robots/${robot.slug}/`}><span>{robot.data.category}</span><strong>{robot.data.manufacturer || 'Robot'}</strong></a>}
           <div class="robot-card-body">
             <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
             <h3>{robot.data.title}</h3>
@@ -161,7 +163,7 @@ const featured = robots.slice(0, 3);
   .image-card{color:white;background:#111}.image-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0c0e12;padding:22px;z-index:0}.image-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 28%,rgba(0,0,0,.86) 100%)}.image-card>*{position:relative;z-index:1}
   .dark-card{background:#121417;color:white}.blue-card{background:var(--bta-blue);color:white}.lime-card{background:var(--bta-lime);color:#101414}
   .use-card>span:last-child{font-size:12px;font-weight:900;margin-top:16px}
-  .robot-image-link{display:block;background:#fff}.catalog-cta{text-align:center;margin:22px 0 64px}.text-link{font-weight:900;text-decoration:none}
+  .robot-image-link{display:block;background:#fff}.robot-poster{aspect-ratio:1/.9;padding:24px;background:linear-gradient(145deg,#0a0d14,#153d83);color:white;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end}.robot-poster span{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:#9cc8ff}.robot-poster strong{font-size:34px;line-height:1;letter-spacing:-.04em;margin-top:7px}.catalog-cta{text-align:center;margin:22px 0 64px}.text-link{font-weight:900;text-decoration:none}
   .editorial-split{display:grid;grid-template-columns:.9fr 1.1fr;border-radius:24px;overflow:hidden;background:#080c17;color:white;margin:72px 0}
   .editorial-image{min-height:520px;background:radial-gradient(circle at center,#163b87 0,#091022 52%,#05070d 100%)}.editorial-image img{width:100%;height:100%;object-fit:contain;padding:34px;filter:drop-shadow(0 28px 48px rgba(0,0,0,.45))}
   .editorial-copy{padding:44px;align-self:center}.editorial-copy h2{font-size:clamp(38px,5vw,64px);line-height:.95;letter-spacing:-.055em;margin:10px 0 18px}.editorial-copy p{color:#c4cbda;line-height:1.55;font-size:17px}
