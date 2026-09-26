@@ -18,7 +18,7 @@ const featured = robots.filter(r => Boolean(r.data.image)).slice(0, 3);
     </a>
     <nav class="nav" aria-label="Primary navigation">
       <a href="#featured">Robots</a>
-      <a href="#use-cases">Use cases</a>
+      <a href="/categories/">Categories</a>
       <a href="/blog/">Articles</a>
       <a href="#buyers">Buyer toolkit</a>
       <a href="#organizations">Organizations</a>
@@ -32,7 +32,7 @@ const featured = robots.filter(r => Boolean(r.data.image)).slice(0, 3);
       <p class="lede">Better Than Awesome is a practical robot discovery site. Start with the job, understand the tradeoffs, compare real machines, then move to a seller only when you are ready.</p>
       <div class="hero-actions">
         <a class="btn blue" href="#featured">Explore robots</a>
-        <a class="btn secondary" href="#use-cases">Shop by job</a>
+        <a class="btn secondary" href="/categories/">Shop by job</a>
       </div>
       <div class="hero-proof">
         <span>Cleaning</span><span>Delivery</span><span>Warehousing</span><span>Humanoids</span><span>Public safety</span><span>Education</span>
@@ -58,12 +58,12 @@ const featured = robots.filter(r => Boolean(r.data.image)).slice(0, 3);
       <p>Robot categories make more sense when they are organized around work. These are the lanes we are building out first.</p>
     </div>
     <div class="use-grid">
-      <a class="use-card image-card" href="#featured"><img src="/media/robots/pudu-bg1-pro.webp" alt="" /><span class="use-label">Cleaning</span><strong>Scrub large floors without pretending a consumer vacuum is an enterprise robot.</strong></a>
-      <a class="use-card image-card" href="#featured"><img src="/media/robots/pudu-mp2000.webp" alt="" /><span class="use-label">Warehouse + logistics</span><strong>Move pallets, carts, supplies and repetitive loads through predictable routes.</strong></a>
-      <a class="use-card image-card" href="#featured"><img src="/media/robots/ubtech-uworld-u1-ultra-female.webp" alt="" /><span class="use-label">Humanoids + interaction</span><strong>Reception, demonstrations, customer engagement, research and embodied AI.</strong></a>
-      <a class="use-card dark-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Quadrupeds</span><strong>Inspection, terrain, security and places wheels have opinions about.</strong><span>Browse seller catalog →</span></a>
-      <a class="use-card blue-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Public safety</span><strong>Firefighting, inspection, hazardous environments and emergency response.</strong><span>Browse seller catalog →</span></a>
-      <a class="use-card lime-card" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow"><span class="use-label">Education + research</span><strong>Robotics platforms for labs, classrooms, developers and embodied AI teams.</strong><span>Browse seller catalog →</span></a>
+      <a class="use-card image-card" href="/categories/cleaning/"><img src="/media/robots/pudu-bg1-pro.webp" alt="" /><span class="use-label">Cleaning</span><strong>Scrub large floors without pretending a consumer vacuum is an enterprise robot.</strong></a>
+      <a class="use-card image-card" href="/categories/warehouse/"><img src="/media/robots/pudu-mp2000.webp" alt="" /><span class="use-label">Warehouse + logistics</span><strong>Move pallets, carts, supplies and repetitive loads through predictable routes.</strong></a>
+      <a class="use-card image-card" href="/categories/humanoids/"><img src="/media/robots/ubtech-uworld-u1-ultra-female.webp" alt="" /><span class="use-label">Humanoids + interaction</span><strong>Reception, demonstrations, customer engagement, research and embodied AI.</strong></a>
+      <a class="use-card dark-card" href="/categories/quadrupeds/"><span class="use-label">Quadrupeds</span><strong>Inspection, terrain, security and places wheels have opinions about.</strong><span>Browse seller catalog →</span></a>
+      <a class="use-card blue-card" href="/categories/safety/"><span class="use-label">Public safety</span><strong>Firefighting, inspection, hazardous environments and emergency response.</strong><span>Browse seller catalog →</span></a>
+      <a class="use-card lime-card" href="/categories/delivery/"><span class="use-label">Education + research</span><strong>Robotics platforms for labs, classrooms, developers and embodied AI teams.</strong><span>Browse seller catalog →</span></a>
     </div>
   </section>
 
