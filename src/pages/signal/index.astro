@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@type':'SoftwareApplication',
+  name:'Robot Signal',
+  applicationCategory:'BusinessApplication',
+  operatingSystem:'Web',
+  description:'Experimental robotics market intelligence for search movement, audience interest, product activity, social discussion and website change monitoring.',
+  url:'https://betterthanawesome.com/signal/'
+};
+
+const sources = [
+  ['Google Search','Queries, impressions, clicks, CTR, position'],
+  ['Site traffic','Visitors, landing pages, countries, referrals, affiliate clicks'],
+  ['Products','Launches, price changes, categories, manufacturer activity'],
+  ['Reddit','Discussion velocity, comments, community attention'],
+  ['YouTube','Video velocity, channel growth, robotics topic activity'],
+  ['Websites','New pages, sitemap changes, product and metadata changes']
+];
+
+const signals = [
+  ['Search Lift','A keyword or page is gaining impressions faster than its baseline.'],
+  ['Product Heat','Traffic, discussion and media attention converge on one robot.'],
+  ['Category Heat','A whole robot category begins accelerating across several sources.'],
+  ['Brand Momentum','A manufacturer gains attention, launches products or grows audience unusually fast.'],
+  ['Opportunity Gap','Search demand exists but Better Than Awesome lacks a strong landing page.'],
+  ['Competitor Movement','A monitored domain gains visibility for an important robotics topic.']
+];
+---
+<Base title="Robot Signal | Robotics Market Intelligence" description="Experimental robotics market intelligence tracking search, traffic, products, social discussion, websites and market movement." schema={schema}>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robot Signal</span></a>
+    <nav class="nav"><a href="/">Home</a><a href="/pulse/">Robot Pulse</a><a href="/robots/">Robots</a><a href="/categories/">Categories</a></nav>
+  </header>
+
+  <section class="signal-hero">
+    <div class="eyebrow">Experimental market intelligence</div>
+    <h1>Watch the robot market move.</h1>
+    <p>Robot Signal turns search visibility, traffic, product activity, social discussion and website changes into a timeline of measurable robotics signals.</p>
+    <div class="hero-chips"><span>Search movement</span><span>Traffic flows</span><span>Sentiment snapshots</span><span>Follower growth</span><span>Product changes</span><span>Keyword watchlists</span></div>
+  </section>
+
+  <section class="signal-board">
+    <div class="signal-board-head">
+      <div><div class="eyebrow">MVP dashboard</div><h2>One place to see what is changing.</h2></div>
+      <span class="experimental">EXPERIMENTAL</span>
+    </div>
+    <div class="metric-grid">
+      <article><span>Search visibility</span><strong>Connect GSC</strong><small>Clicks, impressions, CTR, position</small></article>
+      <article><span>Audience</span><strong>Connect GA4</strong><small>Traffic, geography, referrals</small></article>
+      <article><span>Community</span><strong>Reddit</strong><small>Velocity and discussion</small></article>
+      <article><span>Video</span><strong>YouTube</strong><small>Views, channels, topic movement</small></article>
+    </div>
+  </section>
+
+  <section class="source-section">
+    <div class="section-head"><div><div class="eyebrow">Inputs</div><h2>Signals from different angles.</h2></div><p>No single platform gets to define the market. The useful part is comparing movement across sources.</p></div>
+    <div class="source-grid">
+      {sources.map(([name,copy]) => <article><strong>{name}</strong><span>{copy}</span></article>)}
+    </div>
+  </section>
+
+  <section class="signal-types">
+    <div class="section-head"><div><div class="eyebrow">Derived intelligence</div><h2>We measure change, not just counts.</h2></div><p>A follower count by itself is boring. Acceleration, divergence and unusual movement are signals.</p></div>
+    <div class="signal-grid">
+      {signals.map(([name,copy]) => <article><strong>{name}</strong><p>{copy}</p></article>)}
+    </div>
+  </section>
+
+  <section class="sentiment-panel">
+    <div>
+      <div class="eyebrow">Sentiment without fake precision</div>
+      <h2>Snapshots, not a magic mood score.</h2>
+      <p>Robot Signal will classify discussion into useful categories such as excitement, skepticism, purchase intent, safety concern, information seeking and deployment reports, with sample size and source mix attached.</p>
+    </div>
+    <div class="sentiment-list"><span>Excitement</span><span>Purchase intent</span><span>Skepticism</span><span>Safety concern</span><span>Questions</span><span>Deployment reports</span></div>
+  </section>
+
+  <section class="product-model">
+    <div class="section-head"><div><div class="eyebrow">How this becomes a product</div><h2>Public intelligence feeds private intelligence.</h2></div></div>
+    <div class="tier-grid">
+      <article><span>FREE</span><h3>Robot Signal Public</h3><p>Weekly market pulse, category movement, selected charts and indexable trend articles.</p></article>
+      <article><span>PRO</span><h3>Watchlists + Alerts</h3><p>Daily data, keywords, brands, categories, competitor domains, alerts, exports and history.</p></article>
+      <article><span>TEAM</span><h3>Agency + Enterprise</h3><p>Multiple projects, client dashboards, white-label reports, webhooks and custom monitored sources.</p></article>
+    </div>
+  </section>
+</Base>
+
+<style>
+.signal-hero{padding:64px 0 38px}.signal-hero h1{font-size:clamp(64px,9vw,124px);line-height:.84;letter-spacing:-.075em;max-width:8ch;margin:10px 0 22px}.signal-hero p{font-size:21px;line-height:1.5;max-width:780px}.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.hero-chips span{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:white;font-size:12px;font-weight:850}
+.signal-board{background:#080c13;color:white;border-radius:24px;padding:30px;margin:18px 0 62px}.signal-board-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.signal-board h2{font-size:46px;line-height:.95;letter-spacing:-.05em;margin:8px 0}.experimental{font-size:10px;font-weight:950;letter-spacing:.12em;padding:8px 10px;border:1px solid #394354;border-radius:999px}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.metric-grid article{background:#111722;border:1px solid #222e3f;border-radius:16px;padding:18px}.metric-grid span,.metric-grid strong,.metric-grid small{display:block}.metric-grid span{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#8794a9}.metric-grid strong{font-size:22px;margin:10px 0}.metric-grid small{color:#aab4c5}
+.source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.source-grid article,.signal-grid article{border:1px solid var(--line);border-radius:16px;padding:18px;background:white}.source-grid strong,.source-grid span{display:block}.source-grid span{font-size:12px;color:var(--muted);margin-top:5px}
+.signal-types{margin:62px 0}.signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.signal-grid strong{font-size:20px}.signal-grid p{color:var(--muted);line-height:1.45}
+.sentiment-panel{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;background:linear-gradient(135deg,#25104b,#7140b5);color:white;padding:30px;border-radius:24px;margin:62px 0}.sentiment-panel h2{font-size:44px;line-height:.95;letter-spacing:-.05em;margin:8px 0}.sentiment-panel p{color:#e2d8f0;line-height:1.5}.sentiment-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:center}.sentiment-list span{padding:13px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(255,255,255,.06);font-weight:850}
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}.tier-grid article{border:1px solid var(--line);border-radius:18px;padding:22px;background:white}.tier-grid span{font-size:10px;font-weight:950;letter-spacing:.12em}.tier-grid h3{font-size:26px;letter-spacing:-.04em;margin:10px 0}.tier-grid p{color:var(--muted);line-height:1.45}
+@media(max-width:900px){.metric-grid,.source-grid,.signal-grid,.tier-grid{grid-template-columns:1fr 1fr}.sentiment-panel{grid-template-columns:1fr}}
+@media(max-width:620px){.metric-grid,.source-grid,.signal-grid,.tier-grid,.sentiment-list{grid-template-columns:1fr}}
+</style>
