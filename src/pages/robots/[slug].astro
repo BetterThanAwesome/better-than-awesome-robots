@@ -23,8 +23,17 @@ const productSchema = {
     url: robot.data.seller_url || robot.data.affiliate_url
   } : undefined
 };
+const productBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://betterthanawesome.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Robot Catalog', item: 'https://betterthanawesome.com/robots/' },
+    { '@type': 'ListItem', position: 3, name: robot.data.title, item: 'https://betterthanawesome.com/robots/' + robot.slug + '/' }
+  ]
+};
 ---
-<Base title={robot.data.title + ' | Better Than Awesome'} description={robot.data.hook || robot.data.problem || robot.data.title} image={robot.data.image} schema={productSchema}>
+<Base title={robot.data.title + ' | Better Than Awesome'} description={robot.data.hook || robot.data.problem || robot.data.title} image={robot.data.image} schema={[productSchema, productBreadcrumbSchema]}>
   <header class="site-header">
     <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
     <nav class="nav"><a href="/robots/">Catalog</a><a href="/blog/">Articles</a><a href="/#buyers">Buyer toolkit</a></nav>
