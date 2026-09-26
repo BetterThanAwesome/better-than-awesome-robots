@@ -5,6 +5,8 @@ manufacturer: "Unitree"
 price_usd: 37500
 status: "published"
 region: ["usa"]
+image: "https://shop.unitree.com/cdn/shop/files/1.banner_2d63a110-f36d-44c7-b83a-165df2b828d5_1024x1024.jpg?v=1769743817"
+image_source_url: "https://shop.unitree.com/products/unitree-h2"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 verified_date: "2026-09-26"
 buyer: "Research institutions, developers and advanced robotics programs"
