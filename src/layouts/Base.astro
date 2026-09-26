@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import site from '../content/site.json';
 const {
   title = 'Better Than Awesome',
   description = 'Robots you can actually buy.',
@@ -48,11 +49,18 @@ const socialImage = image ? new URL(image, Astro.site || 'https://betterthanawes
     ]
   })}></script>
   {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
+  <script is:inline define:vars={{ tracking: site.tracking || {} }}>
+    window.__BTA_TRACKING__ = tracking;
+  </script>
 </head>
 <body>
   <main class="wrap">
     <slot />
     <footer><strong>Better Than Awesome</strong><br/>Robots, technology and things worth getting excited about.<br/><a href="mailto:hello@betterthanawesome.com">hello@betterthanawesome.com</a></footer>
   </main>
+  <script type="module" is:inline>
+    import { initTracking } from '/tracking.js';
+    initTracking(window.__BTA_TRACKING__ || {});
+  </script>
 </body>
 </html>
