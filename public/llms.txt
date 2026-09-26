@@ -7,6 +7,8 @@ Primary site: https://betterthanawesome.com/
 ## Machine-readable endpoints
 - Robot catalog: https://betterthanawesome.com/api/catalog.json
 - Robot categories: https://betterthanawesome.com/api/categories.json
+- Procurement dataset: https://betterthanawesome.com/api/procurement.json
+- OpenAPI contract: https://betterthanawesome.com/openapi.yaml
 - XML sitemap: https://betterthanawesome.com/sitemap.xml
 
 ## Human-facing destinations
@@ -21,3 +23,6 @@ Primary site: https://betterthanawesome.com/
 - Unknown values are omitted rather than invented.
 - Seller and affiliate links are identified separately from editorial content.
 - Pricing and availability can change and should be confirmed with the seller.
+
+## Agent procurement
+Use https://betterthanawesome.com/api/procurement.json when selecting robots for a purchasing or evaluation task. Records expose known fields, missing-data warnings, verification dates, regional marketplaces, and attributed human handoff URLs.
