@@ -26,8 +26,11 @@ export function initTracking(config = {}) {
       referrer: document.referrer || null,
       ...data
     };
-    w.dataLayer.push(payload);
-    sendFirstParty(payload);
+    const consentEvent = event === 'bta_consent_update' || event === 'bta_consent_loaded';
+    if (consentState.analytics || consentState.marketing || consentEvent) {
+      w.dataLayer.push(payload);
+      sendFirstParty(payload);
+    }
   };
 
   w.btaTrack = push;
