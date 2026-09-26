@@ -44,6 +44,20 @@ const groups = {
     description: 'Robots for firefighting, hazardous environments, inspection and situations where distance from danger matters.',
     match: ['Public safety'],
     accent: 'orange'
+  },
+  healthcare: {
+    title: 'Healthcare & Medical Robots',
+    kicker: 'Healthcare robotics',
+    description: 'Robots and robotic systems for therapy, rehabilitation, hospital operations, assistive work and care environments.',
+    match: ['Healthcare robotics'],
+    accent: 'teal'
+  },
+  companions: {
+    title: 'Companion & Social Robots',
+    kicker: 'Human interaction',
+    description: 'Robots designed around companionship, multilingual interaction, care, social engagement and human-facing service.',
+    match: ['Companion & care'],
+    accent: 'purple'
   }
 };
 
@@ -110,6 +124,8 @@ const robots = all.filter(r => group.match.includes(r.data.category));
 .category-hero.red{background:linear-gradient(135deg,#32090d,#a61927)}
 .category-hero.navy{background:linear-gradient(135deg,#071321,#123f62)}
 .category-hero.orange{background:linear-gradient(135deg,#3d1805,#b55311)}
+.category-hero.teal{background:linear-gradient(135deg,#073b3a,#148b87)}
+.category-hero.purple{background:linear-gradient(135deg,#24104a,#7441b8)}
 .category-count{min-width:180px;border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:20px;background:rgba(255,255,255,.06)}
 .category-count strong{display:block;font-size:54px;line-height:1}.category-count span{display:block;font-size:12px;color:#d9dde4;margin-top:7px}
 .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
