@@ -19,6 +19,7 @@ export async function GET() {
     '/blog/',
     '/coverage/',
     '/pulse/',
+    '/signal/',
     '/tests/procurement/'
   ];
 
