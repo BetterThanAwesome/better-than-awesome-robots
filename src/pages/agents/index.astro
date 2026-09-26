@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@type':'WebAPI',
+  name:'Better Than Awesome Robot Catalog API',
+  description:'Machine-readable robotics catalog and category data for agents, researchers and developers.',
+  documentation:'https://betterthanawesome.com/agents/',
+  provider:{
+    '@type':'Organization',
+    name:'Better Than Awesome',
+    url:'https://betterthanawesome.com'
+  }
+};
+---
+<Base title="Robot Data for AI Agents | Better Than Awesome" description="Machine-readable robot catalog data for AI agents, developers, researchers and commerce integrations." schema={schema}>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Agents</span></a>
+    <nav class="nav"><a href="/">Home</a><a href="/robots/">Robots</a><a href="/signal/">Robot Signal</a><a href="/pulse/">Robot Pulse</a></nav>
+  </header>
+
+  <section class="agent-hero">
+    <div class="eyebrow">Machine-readable robotics</div>
+    <h1>Robots for humans. Data for agents.</h1>
+    <p>Better Than Awesome publishes a human storefront and a machine-readable robotics catalog in parallel. AI agents can use structured product records instead of guessing from page copy.</p>
+  </section>
+
+  <section class="agent-grid">
+    <article>
+      <span>CATALOG</span>
+      <h2>/api/catalog.json</h2>
+      <p>Published robot records with manufacturer, category, price where known, intended buyer, use case, image, region, verified date and attributed seller path.</p>
+      <a href="/api/catalog.json">Open endpoint →</a>
+    </article>
+    <article>
+      <span>CATEGORIES</span>
+      <h2>/api/categories.json</h2>
+      <p>Robot records grouped by practical category so agents can narrow candidates before comparing products.</p>
+      <a href="/api/categories.json">Open endpoint →</a>
+    </article>
+  </section>
+
+  <section class="agent-principles">
+    <div>
+      <div class="eyebrow">Design principles</div>
+      <h2>Useful to an agent without pretending to be the seller.</h2>
+    </div>
+    <ul>
+      <li>Stable product IDs and canonical Better Than Awesome URLs</li>
+      <li>Seller and affiliate destinations clearly separated from editorial content</li>
+      <li>Unknown values stay unknown rather than being invented</li>
+      <li>Verification dates travel with product records</li>
+      <li>Regional affiliate storefronts remain available for global buyers</li>
+      <li>Future commerce protocols can map onto the same normalized catalog</li>
+    </ul>
+  </section>
+
+  <section class="agent-future">
+    <div class="eyebrow">Where this goes</div>
+    <h2>Agent commerce should be another acquisition channel.</h2>
+    <p>As agent commerce standards mature, Better Than Awesome can expose compatible feeds, quote requests and eventually transaction flows where our role and attribution are clear. For now, the goal is discoverability, useful product comparison and measurable referral traffic.</p>
+  </section>
+</Base>
+
+<style>
+.agent-hero{padding:64px 0 36px}.agent-hero h1{font-size:clamp(62px,9vw,122px);line-height:.84;letter-spacing:-.075em;max-width:8ch;margin:10px 0 22px}.agent-hero p{font-size:21px;line-height:1.5;max-width:780px}
+.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 62px}.agent-grid article{border:1px solid var(--line);border-radius:20px;padding:24px;background:white}.agent-grid span{font-size:10px;font-weight:950;letter-spacing:.12em}.agent-grid h2{font-size:34px;letter-spacing:-.04em;margin:10px 0}.agent-grid p{color:var(--muted);line-height:1.5}.agent-grid a{font-weight:900;text-decoration:none}
+.agent-principles{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;background:#0c1017;color:white;border-radius:24px;padding:30px;margin:0 0 54px}.agent-principles h2{font-size:44px;line-height:.95;letter-spacing:-.05em;margin:8px 0}.agent-principles li{margin:12px 0;color:#d6dbe5;line-height:1.45}
+.agent-future{padding:30px;border:1px solid var(--line);border-radius:22px;background:white;margin-bottom:34px}.agent-future h2{font-size:42px;line-height:.96;letter-spacing:-.045em;margin:8px 0}.agent-future p{max-width:860px;color:var(--muted);line-height:1.5}
+@media(max-width:800px){.agent-grid,.agent-principles{grid-template-columns:1fr}}
+</style>
