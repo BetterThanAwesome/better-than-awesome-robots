@@ -5,6 +5,8 @@ manufacturer: "Unitree"
 price_usd: 8990
 status: "published"
 region: ["usa"]
+image: "https://www.unitree.com/images/eec8d82f279b440ea170982ffa80b3fa_3840x2160.jpg?x-oss-process=image%2Fquality%2Cq_60%2Fformat%2Cwebp"
+image_source_url: "https://www.unitree.com/R1/"
 affiliate_url: "https://www.robotsusa.com/partners/ref/1D754048"
 verified_date: "2026-09-26"
 buyer: "Universities, developers, labs and teams entering humanoid research"
