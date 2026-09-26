@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const groups = {
+  humanoids: {
+    title: 'Humanoid Robots',
+    kicker: 'Humanoids',
+    description: 'Bipedal, wheeled and human-presenting robots for research, service, interaction and industrial experiments.',
+    match: ['Humanoid research','Industrial humanoid','Interactive humanoid','Commercial service'],
+    accent: 'blue'
+  },
+  quadrupeds: {
+    title: 'Robot Dogs & Quadrupeds',
+    kicker: 'Quadrupeds',
+    description: 'Legged and wheel-legged robots for research, inspection, industrial mobility and terrain where ordinary AMRs struggle.',
+    match: ['Quadruped','Industrial quadruped'],
+    accent: 'dark'
+  },
+  cleaning: {
+    title: 'Cleaning Robots',
+    kicker: 'Commercial cleaning',
+    description: 'Autonomous scrubbers and facility robots built around measurable square footage, labor hours and repeatable cleaning work.',
+    match: ['Commercial cleaning'],
+    accent: 'lime'
+  },
+  delivery: {
+    title: 'Delivery & Hospitality Robots',
+    kicker: 'Service automation',
+    description: 'Robots for restaurants, hotels, offices and other indoor environments where repeated delivery routes consume staff time.',
+    match: ['Commercial delivery','Hospitality delivery','Hospitality automation'],
+    accent: 'red'
+  },
+  warehouse: {
+    title: 'Warehouse & Material Handling Robots',
+    kicker: 'Logistics',
+    description: 'AMRs and material movers for pallets, carts, supplies and predictable internal transport.',
+    match: ['Warehouse logistics','Material handling'],
+    accent: 'navy'
+  },
+  safety: {
+    title: 'Public Safety Robots',
+    kicker: 'Emergency response',
+    description: 'Robots for firefighting, hazardous environments, inspection and situations where distance from danger matters.',
+    match: ['Public safety'],
+    accent: 'orange'
+  }
+};
+
+export async function getStaticPaths() {
+  return Object.entries(groups).map(([slug, group]) => ({ params: { slug }, props: { slug, group } }));
+}
+
+const { slug, group } = Astro.props;
+const all = (await getCollection('robots')).filter(r => r.data.status === 'published');
+const robots = all.filter(r => group.match.includes(r.data.category));
+---
+
+<Base title={group.title + ' | Better Than Awesome'} description={group.description}>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
+    <nav class="nav"><a href="/robots/">All robots</a><a href="/categories/">Categories</a><a href="/blog/">Articles</a></nav>
+  </header>
+
+  <section class={'category-hero ' + group.accent}>
+    <div>
+      <div class="eyebrow">{group.kicker}</div>
+      <h1>{group.title}</h1>
+      <p>{group.description}</p>
+    </div>
+    <div class="category-count"><strong>{robots.length}</strong><span>current Better Than Awesome records</span></div>
+  </section>
+
+  <section class="category-grid">
+    {robots.map(robot => (
+      <article class="robot-card">
+        {robot.data.image
+          ? <a href={'/robots/' + robot.slug + '/'}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>
+          : <a class="category-poster" href={'/robots/' + robot.slug + '/'}><span>{robot.data.category}</span><strong>{robot.data.manufacturer || 'Robot'}</strong></a>}
+        <div class="robot-card-body">
+          <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
+          <h3>{robot.data.title}</h3>
+          {robot.data.price_usd && <div class="price">{'$' + robot.data.price_usd.toLocaleString()}</div>}
+          {robot.data.hook && <p>{robot.data.hook}</p>}
+          <div class="card-actions">
+            <a class="btn blue" href={'/robots/' + robot.slug + '/'}>Explore robot</a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <section class="category-footer">
+    <div>
+      <div class="eyebrow">Need the broader marketplace?</div>
+      <h2>Our editorial catalog is curated on purpose.</h2>
+      <p>RobotsUSA carries far more products than we currently cover in depth. Use the seller marketplace when you want the broadest selection and current quote options.</p>
+    </div>
+    <a class="btn secondary" href="https://www.robotsusa.com/partners/ref/1D754048" rel="sponsored nofollow">Browse RobotsUSA</a>
+  </section>
+</Base>
+
+<style>
+.category-hero{margin:48px 0 34px;padding:36px;border-radius:26px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;background:#111;color:white}
+.category-hero h1{font-size:clamp(52px,7vw,96px);line-height:.88;letter-spacing:-.065em;margin:10px 0 16px;max-width:9ch}
+.category-hero p{font-size:19px;line-height:1.5;max-width:720px;color:#d7dbe2}
+.category-hero.blue{background:linear-gradient(135deg,#071326,#164ca3)}
+.category-hero.dark{background:linear-gradient(135deg,#08090c,#30343b)}
+.category-hero.lime{background:linear-gradient(135deg,#18321a,#7fb72a)}
+.category-hero.red{background:linear-gradient(135deg,#32090d,#a61927)}
+.category-hero.navy{background:linear-gradient(135deg,#071321,#123f62)}
+.category-hero.orange{background:linear-gradient(135deg,#3d1805,#b55311)}
+.category-count{min-width:180px;border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:20px;background:rgba(255,255,255,.06)}
+.category-count strong{display:block;font-size:54px;line-height:1}.category-count span{display:block;font-size:12px;color:#d9dde4;margin-top:7px}
+.category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.category-poster{aspect-ratio:1/.9;padding:24px;background:linear-gradient(145deg,#0a0d14,#153d83);color:white;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--line)}
+.category-poster span{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:#9cc8ff}.category-poster strong{font-size:34px;line-height:1;letter-spacing:-.04em;margin-top:7px}
+.category-footer{margin:58px 0 24px;padding:30px;border:1px solid var(--line);border-radius:22px;background:white;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.category-footer h2{font-size:38px;letter-spacing:-.045em;margin:6px 0}.category-footer p{max-width:740px;color:var(--muted);line-height:1.5}
+@media(max-width:760px){.category-hero{grid-template-columns:1fr}.category-footer{align-items:flex-start;flex-direction:column}}
+</style>
