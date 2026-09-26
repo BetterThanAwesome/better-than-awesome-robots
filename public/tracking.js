@@ -2,25 +2,43 @@ export function initTracking(config = {}) {
   const w = window;
   w.dataLayer = w.dataLayer || [];
 
+  let consentState = { analytics:false, marketing:false };
+
+  const sendFirstParty = payload => {
+    if (!consentState.analytics && !consentState.marketing) return;
+    try {
+      const body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/event', new Blob([body], { type:'application/json' }));
+      } else {
+        fetch('/api/event', { method:'POST', headers:{'Content-Type':'application/json'}, body, keepalive:true });
+      }
+    } catch {}
+  };
+
   const push = (event, data = {}) => {
-    w.dataLayer.push({
+    const payload = {
       event,
+      event_id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2),
       event_time: new Date().toISOString(),
       page_path: location.pathname,
       page_url: location.href,
       referrer: document.referrer || null,
       ...data
-    });
+    };
+    w.dataLayer.push(payload);
+    sendFirstParty(payload);
   };
 
   w.btaTrack = push;
 
-  push('bta_page_view', {
+  const pageViewPayload = {
     page_title: document.title,
     traffic_source: new URL(location.href).searchParams.get('utm_source') || null,
     traffic_medium: new URL(location.href).searchParams.get('utm_medium') || null,
     traffic_campaign: new URL(location.href).searchParams.get('utm_campaign') || null
-  });
+  };
+  push('bta_page_view', pageViewPayload);
 
   document.addEventListener('click', event => {
     const anchor = event.target.closest('a');
@@ -68,9 +86,13 @@ export function initTracking(config = {}) {
   };
 
   const applyConsent = consent => {
+    consentState = consent;
     localStorage.setItem(consentKey, JSON.stringify(consent));
     push('bta_consent_update', consent);
-    if (consent.analytics || consent.marketing) loadGTM();
+    if (consent.analytics || consent.marketing) {
+      loadGTM();
+      push('bta_page_view', pageViewPayload);
+    }
     const banner = document.getElementById('bta-consent');
     if (banner) banner.remove();
   };
@@ -78,6 +100,7 @@ export function initTracking(config = {}) {
   if (existing) {
     try {
       const consent = JSON.parse(existing);
+      consentState = consent;
       push('bta_consent_loaded', consent);
       if (consent.analytics || consent.marketing) loadGTM();
       return;
