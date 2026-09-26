@@ -5,7 +5,6 @@ import { getCollection } from 'astro:content';
 const robots = (await getCollection('robots')).filter(r => r.data.status === 'published');
 const categories = [...new Set(robots.map(r => r.data.category))];
 ---
-
 <Base title="Robot Catalog | Better Than Awesome" description="Browse real robots by category, manufacturer, use case and buyer fit.">
   <header class="site-header">
     <a class="brand" href="/"><span class="brand-mark">BTA</span><span>Better Than Awesome</span><span class="brand-sub">Robots</span></a>
@@ -22,7 +21,6 @@ const categories = [...new Set(robots.map(r => r.data.category))];
     <strong>Search</strong>
     <input id="robotSearch" type="search" placeholder="cleaning, humanoid, PUDU, warehouse..." aria-label="Search robot catalog" />
   </div>
-
   <div class="filter-row">
     <button class="filter-chip active" data-filter="all">All robots</button>
     {categories.map(category => <button class="filter-chip" data-filter={category.toLowerCase()}>{category}</button>)}
@@ -31,14 +29,14 @@ const categories = [...new Set(robots.map(r => r.data.category))];
   <section class="grid" id="robotGrid">
     {robots.map(robot => (
       <article class="robot-card" data-robot-card data-category={robot.data.category.toLowerCase()} data-search={[robot.data.title,robot.data.category,robot.data.manufacturer,robot.data.buyer,robot.data.problem,robot.data.tags?.join(' ')].filter(Boolean).join(' ').toLowerCase()}>
-        {robot.data.image && <a href={`/robots/${robot.slug}/`}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
+        {robot.data.image && <a href={'/robots/' + robot.slug + '/'}><img class="robot-image" src={robot.data.image} alt={robot.data.title} /></a>}
         <div class="robot-card-body">
           <div class="meta">{robot.data.category} · {robot.data.manufacturer}</div>
           <h3>{robot.data.title}</h3>
           {robot.data.hook && <p>{robot.data.hook}</p>}
           {robot.data.buyer && <p class="robot-buyer"><strong>Investigate for:</strong> {robot.data.buyer}</p>}
           <div class="card-actions">
-            <a class="btn blue" href={`/robots/${robot.slug}/`}>Explore robot</a>
+            <a class="btn blue" href={'/robots/' + robot.slug + '/'}>Explore robot</a>
             {robot.data.seller_url && <a class="catalog-seller" href={robot.data.seller_url} rel="sponsored nofollow">Seller listing →</a>}
           </div>
         </div>
