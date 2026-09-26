@@ -9,8 +9,26 @@ export async function getStaticPaths() {
 }
 const { post } = Astro.props;
 const { Content } = await post.render();
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.excerpt || post.data.title,
+  datePublished: post.data.publish_date || undefined,
+  image: post.data.image ? [post.data.image] : undefined,
+  author: {
+    '@type': 'Organization',
+    name: 'Better Than Awesome',
+    url: 'https://betterthanawesome.com'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Better Than Awesome',
+    url: 'https://betterthanawesome.com'
+  }
+};
 ---
-<Base title={`${post.data.title} | Better Than Awesome`} description={post.data.excerpt || post.data.title}>
+<Base title={`${post.data.title} | Better Than Awesome`} description={post.data.excerpt || post.data.title} image={post.data.image} schema={articleSchema}>
   <p><a href="/blog/">Back to articles</a></p>
   <article class="prose">
     <h1>{post.data.title}</h1>
