@@ -32,6 +32,13 @@ Purpose:
 - service conversion
 - analytics and retargeting
 
+### MADvertising.agency
+Purpose:
+- paid media / advertising agency
+- audits, consulting, managed media and lead generation
+- case studies, offers and conversion tracking
+- separate client analytics from Better Than Awesome commerce data
+
 ### BetonStreetwear.com
 Purpose:
 - BéTON Streetwear ecommerce / art apparel
