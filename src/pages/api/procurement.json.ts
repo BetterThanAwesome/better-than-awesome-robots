@@ -1,4 +1,3 @@
----
 import { getCollection } from 'astro:content';
 import site from '../../content/site.json';
 
