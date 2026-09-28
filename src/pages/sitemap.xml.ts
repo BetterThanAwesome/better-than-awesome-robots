@@ -7,6 +7,10 @@ export async function GET() {
   const staticPaths = [
     '/',
     '/robots/',
+    '/technology/',
+    '/human-machine/',
+    '/international/',
+    '/organizations/',
     '/categories/',
     '/categories/humanoids/',
     '/categories/quadrupeds/',
