@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const sectors = [
+  { title: 'Government + public safety', body: 'Robotics for inspection, emergency response, field operations, infrastructure and environments where reducing human exposure matters.' },
+  { title: 'Hospitals + care organizations', body: 'Rehabilitation, logistics, cleaning, delivery and assistive systems evaluated around safety, evidence, workflow and support.' },
+  { title: 'Warehouses + industrial operations', body: 'Material movement, inspection, cleaning and repetitive workflows where uptime, integration and total cost matter more than novelty.' },
+  { title: 'Campuses + hospitality', body: 'Delivery, service and facilities robotics for hotels, schools, venues, offices and large managed properties.' }
+];
+
+const questions = [
+  'What work needs to be done, and how often?',
+  'What environment will the machine operate in?',
+  'What safety, privacy or compliance constraints apply?',
+  'What infrastructure, charging, networking or integrations are required?',
+  'What level of service, training and maintenance is available?',
+  'What does success look like in labor hours, safety, throughput, uptime or cost?'
+];
+---
+<Base title="Organizations | Robot Procurement + Evaluation | Better Than Awesome" description="A practical starting point for organizations evaluating robots, automation and connected machine systems.">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Better Than Awesome home"><span class="brand-mark">BTA</span><span>Better Than Awesome</span></a>
+    <nav class="nav" aria-label="Primary navigation"><a href="/robots/">Robots</a><a href="/technology/">Technology</a><a href="/human-machine/">Human + Machine</a><a href="/blog/">Learn</a><a href="/organizations/">Organizations</a><a href="/international/">International</a></nav>
+  </header>
+
+  <section class="org-hero">
+    <div class="eyebrow">Organizations + procurement</div>
+    <h1>Start with requirements, not a robot demo.</h1>
+    <p>For organizations, the useful question is rarely which robot looks most impressive. It is which system can perform the work, fit the environment, integrate with existing operations and survive procurement review.</p>
+    <div class="actions"><a class="btn blue" href="/robots/">Browse machines</a><a class="btn secondary" href="/categories/">Browse by job</a></div>
+  </section>
+
+  <section class="principles">
+    <article><strong>Define the work</strong><span>Document the task, environment, frequency, constraints and measurable outcome before comparing products.</span></article>
+    <article><strong>Evaluate the system</strong><span>Account for power, networking, software, safety, training, maintenance, accessories and integration.</span></article>
+    <article><strong>Keep claims traceable</strong><span>Separate manufacturer claims, seller information, independent evidence and Better Than Awesome editorial context.</span></article>
+  </section>
+
+  <section class="section-block">
+    <div class="section-head"><div><div class="eyebrow">Where robots are being evaluated</div><h2>Different institutions need different evidence.</h2></div><p>Better Than Awesome organizes discovery around the operational setting so a buyer can move from a real need to a defensible shortlist.</p></div>
+    <div class="sector-grid">{sectors.map(item => <article><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
+  </section>
+
+  <section class="requirements">
+    <div><div class="eyebrow">Before requesting a quote</div><h2>Build the requirement sheet first.</h2><p>A strong procurement conversation becomes easier when the buyer can answer a small set of operational questions before talking to a seller.</p></div>
+    <ol>{questions.map(q => <li>{q}</li>)}</ol>
+  </section>
+
+  <section class="procurement">
+    <div><div class="eyebrow">Procurement interface</div><h2>Need the more formal evaluation path?</h2><p>Use the current procurement workspace for requirements, evaluation criteria and quote planning while the institutional buying tools continue to expand.</p></div>
+    <a class="btn blue" href="/tests/procurement/">Open procurement workspace</a>
+  </section>
+</Base>
+
+<style>
+.org-hero{padding:48px 0 62px;max-width:1040px}.org-hero h1{font-size:clamp(58px,8.5vw,118px);line-height:.87;letter-spacing:-.07em;margin:14px 0 24px;max-width:9ch}.org-hero p{font-size:21px;line-height:1.55;max-width:820px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-bottom:84px}.principles article{padding:25px;border-right:1px solid var(--line)}.principles article:last-child{border-right:0}.principles strong,.principles span{display:block}.principles strong{font-size:26px;letter-spacing:-.04em}.principles span{margin-top:6px;color:var(--muted);line-height:1.5}
+.section-block{margin:70px 0}.section-head{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:end;margin-bottom:28px}.section-head h2{font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.055em;margin:8px 0}.section-head p{font-size:17px;line-height:1.55;color:var(--muted)}
+.sector-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.sector-grid article{padding:28px;border:1px solid var(--line);border-radius:22px;min-height:220px}.sector-grid h3{font-size:34px;line-height:1;letter-spacing:-.045em;margin:0 0 12px}.sector-grid p{line-height:1.55;color:var(--muted)}
+.requirements{margin:90px 0 30px;padding:38px;border-radius:26px;background:#0b0d12;color:white;display:grid;grid-template-columns:.9fr 1.1fr;gap:42px}.requirements h2{font-size:clamp(42px,6vw,72px);line-height:.95;letter-spacing:-.055em;margin:10px 0}.requirements p{color:#c7ccd7;line-height:1.55}.requirements ol{margin:0;padding-left:24px}.requirements li{padding:13px 0;border-bottom:1px solid #2a2f38;line-height:1.45}
+.procurement{margin:30px 0 70px;padding:34px;border:1px solid var(--line);border-radius:24px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}.procurement h2{font-size:44px;letter-spacing:-.05em;margin:8px 0}.procurement p{max-width:760px;color:var(--muted);line-height:1.55}
+@media(max-width:760px){.principles,.section-head,.sector-grid,.requirements,.procurement{grid-template-columns:1fr}.principles article{border-right:0;border-bottom:1px solid var(--line)}.org-hero h1{font-size:58px}}
+</style>
